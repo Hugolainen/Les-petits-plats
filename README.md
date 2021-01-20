@@ -3,7 +3,7 @@ OpenClassromms - Front-End developer path
 
 Project7: Develop a Search Tool with Bootstrap
 
-Link to the website : https://hugolainen.github.io/LesPetitsPlats/
+Link to the website : https://hugolainen.github.io/Les-petits-plats/
 
 Objectives:
 * Bootstrap4
