@@ -1,0 +1,24 @@
+{
+  "name": "les-petits-plats",
+  "version": "1.0.0",
+  "description": "OpenClassromms - Front-End developer path",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./scss/style.scss:./css/style.css",
+    "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/prefixed/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hugolainen/Les-petits-plats.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserslist": "last 4 versions",
+  "bugs": {
+    "url": "https://github.com/Hugolainen/Les-petits-plats/issues"
+  },
+  "homepage": "https://github.com/Hugolainen/Les-petits-plats#readme",
+  "dependencies": {
+    "bootstrap": "^4.6.0"
+  }
+}
