@@ -1,2 +1,15 @@
 // Exemple - change the headings font-family
 $headings-font-family: "Times New Roman", Times, serif;
+
+$primary:       #3282F7;
+$success:       #68D9A4;
+$danger:        #ED6454;
+$light:         #E7E7E7;
+$dark:          #C7BEBE;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1240px
+);
