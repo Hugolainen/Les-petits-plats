@@ -1,5 +1,5 @@
 // Exemple - change the headings font-family
-$headings-font-family: "Times New Roman", Times, serif;
+$headings-font-family: "Lato", serif;
 
 $primary:       #3282F7;
 $success:       #68D9A4;
@@ -13,3 +13,18 @@ $container-max-widths: (
   lg: 960px,
   xl: 1240px
 );
+
+$font-size-base: 0.75rem;
+$font-size-lg: 0.75rem;
+$h2-font-size:$font-size-base * 1.5;
+$headings-margin-bottom: 1rem;
+$headings-font-weight: 400;
+
+.recipeTime{
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.robotoFont{
+  font-family: "Roboto", sans-serif;
+}
