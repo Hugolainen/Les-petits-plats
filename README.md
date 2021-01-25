@@ -7,6 +7,7 @@ Link to the website : https://hugolainen.github.io/Les-petits-plats/
 
 Objectives:
 * Bootstrap4
+* jQuerry
 * Search engine tool
   - JavaScript
   - Feature investigation
