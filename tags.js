@@ -1,28 +1,87 @@
-const ingredientOpenButton = $("#btnOpen_ingredients");
-const ingredientCloseButton = $("#btnClose_ingredients");
-const ingredientSearch = $("#searchBar_ingredients");
-ingredientSearch.hide();
-ingredientCloseButton.hide();
-const x = ingredientSearch.position().right;
-const y = ingredientSearch.position().top;
-ingredientCloseButton.css({left:x,top:y});
+var ingredientsTags = new Array;
+ingredientsTags.element = $("#tagSelect_ingredients");
+ingredientsTags.btnOpen = $("#btnOpen_ingredients");
+ingredientsTags.btnClose = $("#btnClose_ingredients");
+ingredientsTags.searchBar = $("#searchBar_ingredients");
+ingredientsTags.tagList = $("#tagList_ingredients");
 
-var test=$(tagSelect_ingredients);
+var devicesTags = new Array;
+devicesTags.element = $("#tagSelect_devices");
+devicesTags.btnOpen = $("#btnOpen_devices");
+devicesTags.btnClose = $("#btnClose_devices");
+devicesTags.searchBar = $("#searchBar_devices");
+devicesTags.tagList = $("#tagList_devices");
 
-ingredientOpenButton.on('click', function(event) {
-    test.removeClass('col-2');
-    test.addClass('col-6');
+var ustensilsTags = new Array;
+ustensilsTags.element = $("#tagSelect_ustensils");
+ustensilsTags.btnOpen = $("#btnOpen_ustensils");
+ustensilsTags.btnClose = $("#btnClose_ustensils");
+ustensilsTags.searchBar = $("#searchBar_ustensils");
+ustensilsTags.tagList = $("#tagList_ustensils");
 
-    ingredientOpenButton.toggle();
-    ingredientSearch.toggle();
-    ingredientCloseButton.toggle();
-    ingredientSearch.focus();
+// Page init
+function initTags(object){
+    object["searchBar"].hide();
+    object["btnClose"].hide();
+    object["tagList"].hide();
+}
+initTags(ingredientsTags);
+initTags(devicesTags);
+initTags(ustensilsTags);
+
+
+function tags_toggleOn(object){
+    object["element"].removeClass('col-2');
+    object["element"].removeClass('heightControl');
+    object["element"].addClass('col-6');
+
+    object["btnOpen"].hide();
+    object["searchBar"].show();
+    object["btnClose"].show();
+    object["tagList"].show();
+    object["searchBar"].focus();
+
+    
+}
+
+function tags_toggleOff(object){
+    object["element"].removeClass('col-6');
+    object["element"].addClass('col-2');
+    object["element"].addClass('heightControl');
+
+    object["btnOpen"].show();
+    object["searchBar"].hide();
+    object["btnClose"].hide();
+    object["tagList"].hide();
+}
+
+// Opening and closing of tags search
+ingredientsTags["btnOpen"].on('click', function(event) {
+    tags_toggleOn(ingredientsTags);
+    tags_toggleOff(ustensilsTags);
+    tags_toggleOff(devicesTags);
 });
 
-$("#searchBar_ingredients").on('blur', function(event) {
-    test.removeClass('col-6');
-    test.addClass('col-2');
-    ingredientSearch.toggle();
-    ingredientCloseButton.toggle();
-    ingredientOpenButton.toggle();
+ingredientsTags["btnClose"].on('click', function(event) {
+    tags_toggleOff(ingredientsTags);
+});
+
+devicesTags["btnOpen"].on('click', function(event) {
+    tags_toggleOn(devicesTags);
+    tags_toggleOff(ingredientsTags);
+    tags_toggleOff(ustensilsTags);
+});
+
+devicesTags["btnClose"].on('click', function(event) {
+    tags_toggleOff(devicesTags);
+});
+
+ustensilsTags["btnOpen"].on('click', function(event) {
+    tags_toggleOn(ustensilsTags);
+    tags_toggleOff(ingredientsTags);
+    tags_toggleOff(devicesTags);
+});
+
+ustensilsTags["btnClose"].on('click', function(event) {
+    tags_toggleOff(ustensilsTags);
 });
