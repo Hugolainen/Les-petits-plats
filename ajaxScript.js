@@ -21,6 +21,10 @@ getAsync().then((data) =>
     const devicesActiveTagList = generateActiveTagsList(devicesList, "device")
     const ustensilsActiveTagList = generateActiveTagsList(ustensilsList, "ustensil")
 
+    var test = generateActiveTagsStructure(ingredientsList);
+    console.log(test.children().eq(0).children().eq(0).children().eq(0));
+    activeTagList.append(test.children().eq(0).children().eq(0).children().eq(0));
+
     addEvent_onClick_dropboxTags(ingredientsTags.tagList, ingredientsList, activeTagList, ingredientsActiveTagList);
   });
 

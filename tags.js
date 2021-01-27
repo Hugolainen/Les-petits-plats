@@ -118,6 +118,16 @@ function generateTagList(element, list){
 }
 
 
+function generateActiveTagsStructure(ingredientsList){
+    var activeTagStructure = $("<ul> </ul>");
+    var ingredients = $("<li> </li>");
+    ingredients.append(generateActiveTagsList(ingredientsList, "ingredient"));
+
+    activeTagStructure.append(ingredients);
+
+    return activeTagStructure;
+}
+
 // Active tags management
 function generateActiveTagsList(tagList, type){
     var activeTagList = $("<ul> </ul>");
