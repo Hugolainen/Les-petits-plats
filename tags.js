@@ -19,7 +19,7 @@ ustensilsTags.btnClose = $("#btnClose_ustensils");
 ustensilsTags.searchBar = $("#searchBar_ustensils");
 ustensilsTags.tagList = $("#tagList_ustensils");
 
-// Page init
+// Page initialisation
 function initTags(object){
     object["searchBar"].hide();
     object["btnClose"].hide();
@@ -30,6 +30,7 @@ initTags(devicesTags);
 initTags(ustensilsTags);
 
 
+// Opening and closing of tags search
 function tags_toggleOn(object){
     object["element"].removeClass('col-2');
     object["element"].removeClass('heightControl');
@@ -40,8 +41,6 @@ function tags_toggleOn(object){
     object["btnClose"].show();
     object["tagList"].show();
     object["searchBar"].focus();
-
-    
 }
 
 function tags_toggleOff(object){
@@ -55,7 +54,6 @@ function tags_toggleOff(object){
     object["tagList"].hide();
 }
 
-// Opening and closing of tags search
 ingredientsTags["btnOpen"].on('click', function(event) {
     tags_toggleOn(ingredientsTags);
     tags_toggleOff(ustensilsTags);
@@ -85,3 +83,33 @@ ustensilsTags["btnOpen"].on('click', function(event) {
 ustensilsTags["btnClose"].on('click', function(event) {
     tags_toggleOff(ustensilsTags);
 });
+
+
+function generateTag(newTag){
+    var tag = document.createElement("li");
+    tag.addClass("list-inline-item");
+    tag.addClass("w-25");
+    tag.addClass("mb-2");
+
+    var link = document.createElement("a");
+    link.addClass("tagList_tag");
+    link.text= newTag.name;
+
+    tag.append(link);
+
+    return tag;
+}
+
+function generateTagList(element, list){
+    for(var i=0; i<list.length;i++){
+        element.append(generateTag(list[i]));
+    }
+}
+
+///////// HTML code for a tag in the dropbox
+/*  <li class="list-inline-item w-25 mb-2"> 
+        <a class="tagList_tag"> 
+            Coconut milk 
+        </a> 
+    </li>
+*/

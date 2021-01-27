@@ -45,3 +45,14 @@ $line-height-lg:2.5;
 .heightControl{
   height:67px;
 }
+
+.tagList_tag{
+  cursor:pointer;
+  color:white;
+
+  &:hover{
+    text-decoration: none;
+    font-weight: bold;
+    color:white;
+  }
+}
