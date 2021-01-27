@@ -90,6 +90,7 @@ ustensilsTags["btnClose"].on('click', function(event) {
 });
 
 
+// Dropbox tags management
 function generateTag(newTag){
     var tag = $("<li> </li>");
     tag.addClass("list-inline-item");
@@ -116,16 +117,8 @@ function generateTagList(element, list){
     tagQuantityControl(element);
 }
 
-function tagQuantityControl(element){
-    if(element.children().length > 30)
-    {
-        for(var i=30; i<element.children().length; i++)
-        {
-            element.children().eq(i).hide();
-        }
-    }
-}
 
+// Active tags management
 function generateActiveTagsList(tagList, type){
     var activeTagList = $("<ul> </ul>");
 
@@ -137,14 +130,11 @@ function generateActiveTagsList(tagList, type){
 
 function generateActiveTag(type, name){
     var activeTag = $("<li>" + name + "<i class=\"ml-2 far fa-times-circle\"></i> </li>");
+    activeTag.attr("type", "button");
     activeTag.addClass("list-inline-item");
     activeTag.addClass("mb-1");
-
-    //var button = $("<div>" + name + "<i class=\"ml-1 far fa-times-circle\"></i> <div>");
-    activeTag.attr("type", "button");
     activeTag.addClass("btn");
 
-    
     if(type=="ingredient")
     {
         activeTag.addClass("btn-primary");
@@ -161,22 +151,34 @@ function generateActiveTag(type, name){
         return 0;
     }
     
-
-    //activeTag.append(button);
-    return activeTag;
-
-    var test = $("<li class=\"list-inline-item mb-1\"> <button type=\"button\" class=\"btn btn-primary\">" + name + "<i class=\"ml-1 far fa-times-circle\"></i> </button> </li>");
     return activeTag;
 }
 
 
+// Tags management functions
+function tagQuantityControl(element){
+    if(element.children().length > 30)
+    {
+        for(var i=30; i<element.children().length; i++)
+        {
+            element.children().eq(i).hide();
+        }
+    }
+}
 
-/*
-tag.on('click', function(event){
-    event.target.hide();
-    console.log(event.target);
-});
-*/
+
+function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement, activeTagList)
+{
+    for(let i=0; i<dropboxElement.children().length; i++){
+        dropboxElement.children().eq(i).on('click', function(event){
+            dropboxElement.children().eq(i).hide();
+            tagList[i].active = true;
+            tagQuantityControl(ingredientsTags.tagList);
+            
+            activeTagList.children().eq(i).clone().appendTo(activeTagsElement);
+        });
+    }
+}
 
 
 ///////// HTML code for a tag in the dropbox
