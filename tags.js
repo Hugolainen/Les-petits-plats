@@ -3,6 +3,7 @@ ingredientsTags.element = $("#tagSelect_ingredients");
 ingredientsTags.btnOpen = $("#btnOpen_ingredients");
 ingredientsTags.btnClose = $("#btnClose_ingredients");
 ingredientsTags.searchBar = $("#searchBar_ingredients");
+ingredientsTags.dropdown = $("#dropdown_ingredients");
 ingredientsTags.tagList = $("#tagList_ingredients");
 
 var devicesTags = new Array;
@@ -10,6 +11,7 @@ devicesTags.element = $("#tagSelect_devices");
 devicesTags.btnOpen = $("#btnOpen_devices");
 devicesTags.btnClose = $("#btnClose_devices");
 devicesTags.searchBar = $("#searchBar_devices");
+devicesTags.dropdown = $("#dropdown_devices");
 devicesTags.tagList = $("#tagList_devices");
 
 var ustensilsTags = new Array;
@@ -17,13 +19,14 @@ ustensilsTags.element = $("#tagSelect_ustensils");
 ustensilsTags.btnOpen = $("#btnOpen_ustensils");
 ustensilsTags.btnClose = $("#btnClose_ustensils");
 ustensilsTags.searchBar = $("#searchBar_ustensils");
+ustensilsTags.dropdown = $("#dropdown_ustensils");
 ustensilsTags.tagList = $("#tagList_ustensils");
 
 // Page initialisation
 function initTags(object){
     object["searchBar"].hide();
     object["btnClose"].hide();
-    object["tagList"].hide();
+    object["dropdown"].hide();
 }
 initTags(ingredientsTags);
 initTags(devicesTags);
@@ -39,7 +42,7 @@ function tags_toggleOn(object){
     object["btnOpen"].hide();
     object["searchBar"].show();
     object["btnClose"].show();
-    object["tagList"].show();
+    object["dropdown"].show();
     object["searchBar"].focus();
 }
 
@@ -51,7 +54,7 @@ function tags_toggleOff(object){
     object["btnOpen"].show();
     object["searchBar"].hide();
     object["btnClose"].hide();
-    object["tagList"].hide();
+    object["dropdown"].hide();
 }
 
 ingredientsTags["btnOpen"].on('click', function(event) {
@@ -86,14 +89,14 @@ ustensilsTags["btnClose"].on('click', function(event) {
 
 
 function generateTag(newTag){
-    var tag = document.createElement("li");
+    var tag = $("<li> </li>");
     tag.addClass("list-inline-item");
     tag.addClass("w-25");
     tag.addClass("mb-2");
+    //tag.attr('id', 'test');
 
-    var link = document.createElement("a");
+    var link = $("<a>" + newTag + "</a>");
     link.addClass("tagList_tag");
-    link.text= newTag.name;
 
     tag.append(link);
 
@@ -103,6 +106,18 @@ function generateTag(newTag){
 function generateTagList(element, list){
     for(var i=0; i<list.length;i++){
         element.append(generateTag(list[i]));
+    }
+
+    tagQuantityControl(element);
+}
+
+function tagQuantityControl(element){
+    if(element.children().length > 30)
+    {
+        for(var i=30; i<element.children().length; i++)
+        {
+            element.children().eq(i).hide();
+        }
     }
 }
 

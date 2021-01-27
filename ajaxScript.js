@@ -1,4 +1,3 @@
-
 async function getAsync() 
 {
   let response = await fetch(`https://hugolainen.github.io/Les-petits-plats/recipes.json`);
@@ -13,14 +12,13 @@ getAsync().then((data) =>
     const devicesList = generateList("devices", recipeStructure);
     const ustensilsList = generateList("ustensils", recipeStructure);
 
-    console.log(ingredientsList);
-    console.log(devicesList);
-    console.log(ustensilsList);
-
+    // Generation of the tags in the dropBox menus
+    generateTagList(ingredientsTags.tagList, ingredientsList);
+    generateTagList(devicesTags.tagList, devicesList);
+    generateTagList(ustensilsTags.tagList, ustensilsList);
 });
 
-
-
+// Extract and standarize the list for each tag type
 function generateList(type, data){
   var tagList = new Array();
   var uniqueTags = new Array();
