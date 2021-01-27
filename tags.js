@@ -22,6 +22,8 @@ ustensilsTags.searchBar = $("#searchBar_ustensils");
 ustensilsTags.dropdown = $("#dropdown_ustensils");
 ustensilsTags.tagList = $("#tagList_ustensils");
 
+var activeTagList = $("#activeTags_list");
+
 // Page initialisation
 function initTags(object){
     object["searchBar"].hide();
@@ -105,7 +107,10 @@ function generateTag(newTag){
 
 function generateTagList(element, list){
     for(var i=0; i<list.length;i++){
-        element.append(generateTag(list[i]));
+        element.append(generateTag(list[i].name));
+        element.children().eq(i).on('click', function(event){
+            
+        });
     }
 
     tagQuantityControl(element);
@@ -121,10 +126,76 @@ function tagQuantityControl(element){
     }
 }
 
+function generateActiveTagsList(tagList, type){
+    var activeTagList = $("<ul> </ul>");
+
+    for(let i=0; i<tagList.length; i++){
+        activeTagList.append(generateActiveTag(type, tagList[i].name));
+    }
+    return activeTagList;
+}
+
+function generateActiveTag(type, name){
+    var activeTag = $("<li>" + name + "<i class=\"ml-2 far fa-times-circle\"></i> </li>");
+    activeTag.addClass("list-inline-item");
+    activeTag.addClass("mb-1");
+
+    //var button = $("<div>" + name + "<i class=\"ml-1 far fa-times-circle\"></i> <div>");
+    activeTag.attr("type", "button");
+    activeTag.addClass("btn");
+
+    
+    if(type=="ingredient")
+    {
+        activeTag.addClass("btn-primary");
+    }
+    else if(type=="device"){
+        activeTag.addClass("btn-success");
+        activeTag.addClass("text-white");
+    }
+    else if(type=="ustensil"){
+        activeTag.addClass("btn-danger");
+    }
+    else{
+        console.log("Error: activeTag generation -> unknow type");
+        return 0;
+    }
+    
+
+    //activeTag.append(button);
+    return activeTag;
+
+    var test = $("<li class=\"list-inline-item mb-1\"> <button type=\"button\" class=\"btn btn-primary\">" + name + "<i class=\"ml-1 far fa-times-circle\"></i> </button> </li>");
+    return activeTag;
+}
+
+
+
+/*
+tag.on('click', function(event){
+    event.target.hide();
+    console.log(event.target);
+});
+*/
+
+
 ///////// HTML code for a tag in the dropbox
-/*  <li class="list-inline-item w-25 mb-2"> 
+/*  
+    <li class="list-inline-item w-25 mb-2"> 
         <a class="tagList_tag"> 
             Coconut milk 
         </a> 
     </li>
+*/
+
+///////// HTML code for a tag in the dropbox
+/*  
+    <li class="list-inline-item mb-1"> 
+        <button type="button" class="btn btn-primary"> 
+            Coco 
+            <i class="ml-1 far fa-times-circle"></i>
+        </button> 
+    </li>
+    /!\ btn-success text-white
+    /!\ btn-danger
 */
