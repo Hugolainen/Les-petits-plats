@@ -48,7 +48,18 @@ function generateCard(recipe){
     var col21=$("<ul> </ul>");
     col21.addClass("col list-unstyled cardFontSize");
     for(let i=0; i<recipe.ingredients.length; i++){
-        let newIngredient = $("<li> </li>").html("<strong>" + recipe.ingredients[i].ingredient + ": </strong>" + recipe.ingredients[i].quantity + recipe.ingredients[i].unit);
+        let newIngredient = $("<li> </li>");
+
+        if(recipe.ingredients[i].quantity == undefined && recipe.ingredients[i].unit == undefined){
+            newIngredient.html("<strong>" + recipe.ingredients[i].ingredient + "</strong>");
+        }
+        else if(recipe.ingredients[i].unit == undefined){
+            newIngredient.html("<strong>" + recipe.ingredients[i].ingredient + ": </strong>" + recipe.ingredients[i].quantity);
+        }
+        else{
+            newIngredient.html("<strong>" + recipe.ingredients[i].ingredient + ": </strong>" + recipe.ingredients[i].quantity + recipe.ingredients[i].unit);
+        }
+        
         col21.append(newIngredient);
     }
 
