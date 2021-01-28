@@ -23,6 +23,8 @@ ustensilsTags.dropdown = $("#dropdown_ustensils");
 ustensilsTags.tagList = $("#tagList_ustensils");
 
 var activeTagList = $("#activeTags_list");
+var index_activeTagList_devices;
+var index_activeTagList_ustensils;
 
 // Page initialisation
 function initTags(object){
@@ -118,24 +120,11 @@ function generateTagList(element, list){
 }
 
 
-function generateActiveTagsStructure(ingredientsList){
-    var activeTagStructure = $("<ul> </ul>");
-    var ingredients = $("<li> </li>");
-    ingredients.append(generateActiveTagsList(ingredientsList, "ingredient"));
-
-    activeTagStructure.append(ingredients);
-
-    return activeTagStructure;
-}
-
 // Active tags management
-function generateActiveTagsList(tagList, type){
-    var activeTagList = $("<ul> </ul>");
-
+function generateActiveTagsList(activeTagsListElement, tagList, type){
     for(let i=0; i<tagList.length; i++){
-        activeTagList.append(generateActiveTag(type, tagList[i].name));
+        activeTagsListElement.append(generateActiveTag(type, tagList[i].name));
     }
-    return activeTagList;
 }
 
 function generateActiveTag(type, name){
@@ -161,6 +150,7 @@ function generateActiveTag(type, name){
         return 0;
     }
     
+    activeTag.hide();
     return activeTag;
 }
 
@@ -177,15 +167,34 @@ function tagQuantityControl(element){
 }
 
 
-function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement, activeTagList)
+function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement, tagsType)
 {
     for(let i=0; i<dropboxElement.children().length; i++){
         dropboxElement.children().eq(i).on('click', function(event){
             dropboxElement.children().eq(i).hide();
             tagList[i].active = true;
-            tagQuantityControl(ingredientsTags.tagList);
+            //tagQuantityControl(ingredientsTags.tagList);
             
-            activeTagList.children().eq(i).clone().appendTo(activeTagsElement);
+            var typeElement;
+            switch(tagsType) {
+                case "ingredients":
+                    typeElement = activeTagsElement.children().eq(i);
+                  break;
+
+                case "devices":
+                    typeElement = activeTagsElement.children().eq(i + index_activeTagList_devices);
+                  break;
+
+                case "ustensils":
+                    typeElement = activeTagsElement.children().eq(i + index_activeTagList_ustensils);
+                break;
+                
+                default:
+                  console.log("Error: addEvent_onClick_dropboxTags -> unknwown type");
+                  return 0;
+              }
+
+              typeElement.show();
         });
     }
 }

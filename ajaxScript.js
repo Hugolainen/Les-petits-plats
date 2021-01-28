@@ -11,21 +11,21 @@ getAsync().then((data) =>
     const ingredientsList = generateList("ingredients", recipeStructure);
     const devicesList = generateList("devices", recipeStructure);
     const ustensilsList = generateList("ustensils", recipeStructure);
+    index_activeTagList_devices = ingredientsList.length;
+    index_activeTagList_ustensils = index_activeTagList_devices + devicesList.length;
 
     // Generation of the tags in the dropBox menus
     generateTagList(ingredientsTags.tagList, ingredientsList);
     generateTagList(devicesTags.tagList, devicesList);
     generateTagList(ustensilsTags.tagList, ustensilsList);
 
-    const ingredientsActiveTagList = generateActiveTagsList(ingredientsList, "ingredient")
-    const devicesActiveTagList = generateActiveTagsList(devicesList, "device")
-    const ustensilsActiveTagList = generateActiveTagsList(ustensilsList, "ustensil")
+    generateActiveTagsList(activeTagList, ingredientsList, "ingredient");
+    generateActiveTagsList(activeTagList, devicesList, "device");
+    generateActiveTagsList(activeTagList, ustensilsList, "ustensil");
 
-    var test = generateActiveTagsStructure(ingredientsList);
-    console.log(test.children().eq(0).children().eq(0).children().eq(0));
-    activeTagList.append(test.children().eq(0).children().eq(0).children().eq(0));
-
-    addEvent_onClick_dropboxTags(ingredientsTags.tagList, ingredientsList, activeTagList, ingredientsActiveTagList);
+    addEvent_onClick_dropboxTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients");
+    addEvent_onClick_dropboxTags(devicesTags.tagList, devicesList, activeTagList, "devices");
+    addEvent_onClick_dropboxTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils");
   });
 
 // Extract, standarize and initialize the list for each tag type
