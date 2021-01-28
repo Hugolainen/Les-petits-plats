@@ -30,6 +30,8 @@ getAsync().then((data) =>
     addEvent_onClick_activeTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients");
     addEvent_onClick_activeTags(devicesTags.tagList, devicesList, activeTagList, "devices");
     addEvent_onClick_activeTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils");
+
+    generateRecipeCardGallery(recipeGallery, recipeStructure);
   });
 
 // Extract, standarize and initialize the list for each tag type
