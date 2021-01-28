@@ -116,7 +116,7 @@ function generateTagList(element, list){
         });
     }
 
-    tagQuantityControl(element);
+    tagQuantityControl(element, list);
 }
 
 
@@ -156,11 +156,16 @@ function generateActiveTag(type, name){
 
 
 // Tags management functions
-function tagQuantityControl(element){
-    if(element.children().length > 30)
-    {
-        for(var i=30; i<element.children().length; i++)
-        {
+function tagQuantityControl(element, tagList){
+    var nbTag = 0;
+    for(let i=0; i<tagList.length; i++){
+        if(nbTag < 30){
+            if(!tagList[i].active){
+                element.children().eq(i).show();
+                nbTag++;
+            }
+        }
+        else{
             element.children().eq(i).hide();
         }
     }
@@ -173,7 +178,7 @@ function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement
         dropboxElement.children().eq(i).on('click', function(){
             dropboxElement.children().eq(i).hide();
             tagList[i].active = true;
-            //tagQuantityControl(ingredientsTags.tagList);
+            tagQuantityControl(dropboxElement, tagList);
             
             var typeElement;
             switch(tagsType) {
@@ -224,7 +229,7 @@ function addEvent_onClick_activeTags(dropboxElement, tagList, activeTagsElement,
         activeTagsElement.children().eq(i).on('click', function(){
             activeTagsElement.children().eq(i).hide();
             tagList[i-activeTagList_indexOffset].active = false;
-            //tagQuantityControl(ingredientsTags.tagList);
+            tagQuantityControl(dropboxElement, tagList);
 
             dropboxElement.children().eq(i-activeTagList_indexOffset).show();
         });
