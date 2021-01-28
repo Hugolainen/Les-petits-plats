@@ -1,130 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <script src="https://kit.fontawesome.com/6fcdcaea13.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/style.css" />
-    <title> Les petits plats </title>
-</head>
+      <script src="https://kit.fontawesome.com/6fcdcaea13.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="css/style.css" />
+      <title> Les petits plats </title>
+  </head>
 
-<body>
-
-
-<div class="container">
-    <div class="row my-3">
-      <div class="col text-center">
-        <h1> <img class=img-fluid" src="logo.png" alt="Les petits plats"> </h1>
+  <body>
+    <div class="container">
+      <!-- Logo --> 
+      <div class="row my-3">
+        <div class="col text-center">
+          <h1> <img class="img-fluid" src="logo.png" alt="Les petits plats"> </h1>
+        </div>
       </div>
-    </div>
 
-    <div class="row mb-3 input-group"> 
-      <input id="global_searchInput" class="form-control form-control-lg bg-light text-dark" type="text" placeholder="Search an ingredient, device, ustensil or a recipe">
-      <div class="input-group-append">
-        <span class="input-group-text bg-light"> <i class="mr-2 text-dark fas fa-search"></i> </span>
+      <!-- Main searchBar --> 
+      <div class="row mb-3 input-group"> 
+        <input id="global_searchInput" class="form-control form-control-lg bg-light text-dark" type="text" placeholder="Search an ingredient, device, ustensil or a recipe">
+        <div class="input-group-append">
+          <span class="input-group-text bg-light"> <i class="mr-2 text-dark fas fa-search"></i> </span>
+        </div>
       </div>
-    </div>
-    
-    <div id="activeTags" class="row">
-      <ul id="activeTags_list" class="list-inline col-12 pl-0">
-      </ul>      
-    </div>
+      
+      <!-- Active tagList --> 
+      <div id="activeTags" class="row">
+        <ul id="activeTags_list" class="list-inline col-12 pl-0">
+        </ul>      
+      </div>
 
-    <div class="row mb-4">
-      <div id="tagSelect_ingredients" class="col-2 bg-primary border rounded heightControl">
-        <div class="row">
-          <button id="btnOpen_ingredients" class="w-100 btn btn-primary btn-lg font-weight-bold text-left"> Ingredients <i class="float-right pt-3 fas fa-chevron-down"></i> </button>
-          <div class="input-group"> 
-            <input class="form-control form-control-lg bg-primary text-white" id="searchBar_ingredients" type="text" placeholder="Search an ingredient">
-            <div class="input-group-append">
-              <button id="btnClose_ingredients" class="btn btn-primary btn-lg"> <i class="mr-2 fas fa-chevron-up"></i> </button>
+      <!-- Advanced search field --> 
+      <div class="row mb-4">
+        <div id="tagSelect_ingredients" class="col-2 bg-primary border rounded heightControl">
+          <div class="row">
+            <button id="btnOpen_ingredients" class="w-100 btn btn-primary btn-lg font-weight-bold text-left"> Ingredients <i class="float-right pt-3 fas fa-chevron-down"></i> </button>
+            <div class="input-group"> 
+              <input class="form-control form-control-lg bg-primary text-white" id="searchBar_ingredients" type="text" placeholder="Search an ingredient">
+              <div class="input-group-append">
+                <button id="btnClose_ingredients" class="btn btn-primary btn-lg"> <i class="mr-2 fas fa-chevron-up"></i> </button>
+              </div>
             </div>
+          </div>
+
+          <div id="dropdown_ingredients" class="row">
+            <ul  id="tagList_ingredients" class="w-100 mx-4 list-inline text-white d-flex justify-content-between flex-wrap">
+              
+            </ul>
           </div>
         </div>
 
-        <div id="dropdown_ingredients" class="row">
-          <ul  id="tagList_ingredients" class="w-100 mx-4 list-inline text-white d-flex justify-content-between flex-wrap">
-            
-          </ul>
-        </div>
-      </div>
-
-      <div id="tagSelect_devices" class="col-2 bg-success border rounded mx-3 heightControl">
-        <div class="row">
-          <button id="btnOpen_devices" class="text-left w-100 btn btn-success btn-lg font-weight-bold text-white"> Devices <i class="float-right pt-3  fas fa-chevron-down"></i> </button>
-          <div class="input-group"> 
-            <input class="form-control form-control-lg bg-success text-white" id="searchBar_devices" type="text" placeholder="Search a device">
-            <div class="input-group-append">
-              <button id="btnClose_devices" class="btn btn-success btn-lg"> <i class="text-white mr-2 fas fa-chevron-up"></i> </button>
+        <div id="tagSelect_devices" class="col-2 bg-success border rounded mx-3 heightControl">
+          <div class="row">
+            <button id="btnOpen_devices" class="text-left w-100 btn btn-success btn-lg font-weight-bold text-white"> Devices <i class="float-right pt-3  fas fa-chevron-down"></i> </button>
+            <div class="input-group"> 
+              <input class="form-control form-control-lg bg-success text-white" id="searchBar_devices" type="text" placeholder="Search a device">
+              <div class="input-group-append">
+                <button id="btnClose_devices" class="btn btn-success btn-lg"> <i class="text-white mr-2 fas fa-chevron-up"></i> </button>
+              </div>
             </div>
+          </div>
+
+          <div id="dropdown_devices" class="row">
+            <ul id="tagList_devices" class="w-100 mx-4 list-inline text-white d-flex justify-content-between flex-wrap">
+              
+            </ul>
           </div>
         </div>
 
-        <div id="dropdown_devices" class="row">
-          <ul id="tagList_devices" class="w-100 mx-4 list-inline text-white d-flex justify-content-between flex-wrap">
-            
-          </ul>
-        </div>
-      </div>
-
-      <div id="tagSelect_ustensils" class="col-2 bg-danger border rounded heightControl">
-        <div class="row">
-          <button id="btnOpen_ustensils" class="text-left w-100 btn btn-danger btn-lg font-weight-bold"> Ustensils <i class="float-right pt-3 fas fa-chevron-down"></i> </button>
-          <div class="input-group"> 
-            <input class="form-control form-control-lg bg-danger text-white" id="searchBar_ustensils" type="text" placeholder="Search an ustensil">
-            <div class="input-group-append">
-              <button id="btnClose_ustensils" class="btn btn-danger btn-lg"> <i class="mr-2 fas fa-chevron-up"></i> </button>
+        <div id="tagSelect_ustensils" class="col-2 bg-danger border rounded heightControl">
+          <div class="row">
+            <button id="btnOpen_ustensils" class="text-left w-100 btn btn-danger btn-lg font-weight-bold"> Ustensils <i class="float-right pt-3 fas fa-chevron-down"></i> </button>
+            <div class="input-group"> 
+              <input class="form-control form-control-lg bg-danger text-white" id="searchBar_ustensils" type="text" placeholder="Search an ustensil">
+              <div class="input-group-append">
+                <button id="btnClose_ustensils" class="btn btn-danger btn-lg"> <i class="mr-2 fas fa-chevron-up"></i> </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div id="dropdown_ustensils" class="row">
-          <ul id="tagList_ustensils" class="w-100 mx-4 list-inline text-white d-flex justify-content-between flex-wrap">
-            
-          </ul>
+          <div id="dropdown_ustensils" class="row">
+            <ul id="tagList_ustensils" class="w-100 mx-4 list-inline text-white d-flex justify-content-between flex-wrap">
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RecipeCard gallery --> 
+      <div class="row mb-5">
+        <div class="col-12 col-lg-4">
+          <div class="card border-light shadow-sm bg-light">
+            <img src="https://via.placeholder.com/380x180.png" class="bd-placeholder-img card-img-top" alt="Placeholder image" height="180">
+            <div class="card-body pb-0">
+              <div class="row">
+                <div class="col">
+                  <h2> Coco Lemonade </h2>
+                </div>
+
+                <div class="col">
+                  <span class="font-weight-bold d-block text-right"> <i class="far fa-clock"></i> 10 min </span>
+                </div>
+              </div>
+
+              <div class="row">
+                <ul class="col list-unstyled cardFontSize">
+                  <li> <strong> Coconut milk: </strong> 400ml </li>
+                  <li> <strong> Lemon juice: </strong> 2 </li>
+                  <li> <strong> Coconut cream: </strong> 4 cuillères </li>
+                  <li> <strong> Sugar: </strong> 20g </li>
+                  <li> <strong> Ice cubes: </strong> 2 </li>
+                </ul>
+
+                <div class="col">
+                  <p class="robotoFont cardFontSize"> Put the ice cubes in the blender, add the milk, coconut cream, the juice of 2 lemons and the sugar. Blend until you get the desired texture. </p>
+                </div>
+              </div>
+            </div>       
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="row mb-5">
-      <div class="col-12 col-lg-4">
-        <div class="card border-light shadow-sm bg-light">
-          <img class="bd-placeholder-img card-img-top bg-secondary" width="100%" height="180"></img>
-          <div class="card-body pb-0">
-            <div class="row">
-              <div class="col">
-                <h2> Coco Lemonade </h2>
-              </div>
-
-              <div class="col">
-                <span class="font-weight-bold d-block text-right"> <i class="far fa-clock"></i> 10 min </span>
-              </div>
-            </div>
-
-            <div class="row">
-              <ul class="col list-unstyled cardFontSize">
-                <li> <strong> Coconut milk: </strong> 400ml </li>
-                <li> <strong> Lemon juice: </strong> 2 </li>
-                <li> <strong> Coconut cream: </strong> 4 cuillères </li>
-                <li> <strong> Sugar: </strong> 20g </li>
-                <li> <strong> Ice cubes: </strong> 2 </li>
-              </ul>
-
-              <div class="col">
-                <p class="robotoFont cardFontSize"> Put the ice cubes in the blender, add the milk, coconut cream, the juice of 2 lemons and the sugar. Blend until you get the desired texture. </p>
-              </div>
-            </div>
-          </div>       
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -133,6 +133,7 @@
 
     <script src="ajaxScript.js"></script>
     <script src="tags.js"></script>
+    <script src="recipeCards.js"></script>
   </body>
 
 </html>

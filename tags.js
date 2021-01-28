@@ -92,13 +92,12 @@ ustensilsTags["btnClose"].on('click', function(event) {
 });
 
 
-// Dropbox tags management
+// Dropbox tagList elements generation
 function generateTag(newTag){
     var tag = $("<li> </li>");
     tag.addClass("list-inline-item");
     tag.addClass("w-25");
     tag.addClass("mb-2");
-    //tag.attr('id', 'test');
 
     var link = $("<a>" + newTag + "</a>");
     link.addClass("tagList_tag");
@@ -119,8 +118,23 @@ function generateTagList(element, list){
     tagQuantityControl(element, list);
 }
 
+// DropBox listed tags update based on 'active' status of the tagLists
+function tagQuantityControl(element, tagList){
+    var nbTag = 0;
+    for(let i=0; i<tagList.length; i++){
+        if(nbTag < 30){
+            if(!tagList[i].active){
+                element.children().eq(i).show();
+                nbTag++;
+            }
+        }
+        else{
+            element.children().eq(i).hide();
+        }
+    }
+}
 
-// Active tags management
+// Active tagList elements generation
 function generateActiveTagsList(activeTagsListElement, tagList, type){
     for(let i=0; i<tagList.length; i++){
         activeTagsListElement.append(generateActiveTag(type, tagList[i].name));
@@ -129,7 +143,6 @@ function generateActiveTagsList(activeTagsListElement, tagList, type){
 
 function generateActiveTag(type, name){
     var activeTag = $("<li>" + name + "<i class=\"ml-2 far fa-times-circle\"></i> </li>");
-    activeTag.attr("type", "button");
     activeTag.addClass("list-inline-item");
     activeTag.addClass("mb-1");
     activeTag.addClass("btn");
@@ -154,24 +167,7 @@ function generateActiveTag(type, name){
     return activeTag;
 }
 
-
-// Tags management functions
-function tagQuantityControl(element, tagList){
-    var nbTag = 0;
-    for(let i=0; i<tagList.length; i++){
-        if(nbTag < 30){
-            if(!tagList[i].active){
-                element.children().eq(i).show();
-                nbTag++;
-            }
-        }
-        else{
-            element.children().eq(i).hide();
-        }
-    }
-}
-
-
+// Events on dropBox/active tagList elements to toggle tags and 'active' parameter in tagList
 function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement, tagsType)
 {
     for(let i=0; i<dropboxElement.children().length; i++){
