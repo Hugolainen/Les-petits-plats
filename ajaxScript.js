@@ -26,6 +26,10 @@ getAsync().then((data) =>
     addEvent_onClick_dropboxTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients");
     addEvent_onClick_dropboxTags(devicesTags.tagList, devicesList, activeTagList, "devices");
     addEvent_onClick_dropboxTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils");
+
+    addEvent_onClick_activeTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients");
+    addEvent_onClick_activeTags(devicesTags.tagList, devicesList, activeTagList, "devices");
+    addEvent_onClick_activeTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils");
   });
 
 // Extract, standarize and initialize the list for each tag type

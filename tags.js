@@ -170,7 +170,7 @@ function tagQuantityControl(element){
 function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement, tagsType)
 {
     for(let i=0; i<dropboxElement.children().length; i++){
-        dropboxElement.children().eq(i).on('click', function(event){
+        dropboxElement.children().eq(i).on('click', function(){
             dropboxElement.children().eq(i).hide();
             tagList[i].active = true;
             //tagQuantityControl(ingredientsTags.tagList);
@@ -190,15 +190,46 @@ function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement
                 break;
                 
                 default:
-                  console.log("Error: addEvent_onClick_dropboxTags -> unknwown type");
-                  return 0;
-              }
+                    console.log("Error: addEvent_onClick_dropboxTags -> unknwown type");
+                    return 0;
+            }
 
-              typeElement.show();
+            typeElement.show();
         });
     }
 }
 
+function addEvent_onClick_activeTags(dropboxElement, tagList, activeTagsElement, tagsType)
+{
+    var activeTagList_indexOffset;
+    switch(tagsType) {
+        case "ingredients":
+            activeTagList_indexOffset = 0;
+            break;
+
+        case "devices":
+            activeTagList_indexOffset = index_activeTagList_devices;
+            break;
+
+        case "ustensils":
+            activeTagList_indexOffset = index_activeTagList_ustensils;
+            break;
+        
+        default:
+          console.log("Error: addEvent_onClick_dropboxTags -> unknwown type");
+          return 0;
+    }
+
+    for(let i=activeTagList_indexOffset; i<activeTagList_indexOffset + dropboxElement.children().length; i++){
+        activeTagsElement.children().eq(i).on('click', function(){
+            activeTagsElement.children().eq(i).hide();
+            tagList[i-activeTagList_indexOffset].active = false;
+            //tagQuantityControl(ingredientsTags.tagList);
+
+            dropboxElement.children().eq(i-activeTagList_indexOffset).show();
+        });
+    }
+}
 
 ///////// HTML code for a tag in the dropbox
 /*  
