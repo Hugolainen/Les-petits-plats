@@ -9,7 +9,7 @@ function generateRecipeCardGallery(galleryElement, recipeList){
 
 function generateCard(recipe){
     var element = $("<div> </div>");
-    element.addClass("col-12 col-lg-4 px-3 pb-3");
+    element.addClass("col-12 col-lg-4 px-3 pb-4");
     
     var card = $("<div> </div>");
     card.addClass("card border-light shadow-sm bg-light");

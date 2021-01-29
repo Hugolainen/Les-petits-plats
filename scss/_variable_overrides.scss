@@ -56,3 +56,11 @@ $line-height-lg:2.5;
     color:white;
   }
 }
+
+.galleryPositioning{
+  position: absolute;;
+  top: 335px;
+  width: 1240px;
+
+  z-index:-1;
+}
