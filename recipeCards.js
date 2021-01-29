@@ -8,8 +8,11 @@ function generateRecipeCardGallery(galleryElement, recipeList){
 }
 
 function generateCard(recipe){
+    var element = $("<div> </div>");
+    element.addClass("col-12 col-lg-4 px-3 pb-3");
+    
     var card = $("<div> </div>");
-    card.addClass("col-12 col-lg-4 p-0 card border-light shadow-sm bg-light");
+    card.addClass("card border-light shadow-sm bg-light");
 
     // Placeholder image
     var image=$("<img src=\"https://via.placeholder.com/380x180.png\" class=\"bd-placeholder-img card-img-top\" alt=\"Placeholder image\" height=\"180\">");
@@ -17,7 +20,6 @@ function generateCard(recipe){
     // Card-body
     var cardBody =  $("<div> </div>");
     cardBody.addClass("card-body pb-0");
-
 
     // -- row1
     var row1=$("<div> </div>");
@@ -74,11 +76,12 @@ function generateCard(recipe){
     row2.append(col22);
     cardBody.append(row2);
 
-
     card.append(image);
     card.append(cardBody);
 
-    return card;
+    element.append(card);
+
+    return element;
 }
 
 

@@ -21,7 +21,7 @@
       </div>
 
       <!-- Main searchBar --> 
-      <div class="row mb-3 input-group"> 
+      <div class="row mb-3 px-3 input-group"> 
         <input id="global_searchInput" class="form-control form-control-lg bg-light text-dark" type="text" placeholder="Search an ingredient, device, ustensil or a recipe">
         <div class="input-group-append">
           <span class="input-group-text bg-light"> <i class="mr-2 text-dark fas fa-search"></i> </span>
@@ -29,13 +29,13 @@
       </div>
       
       <!-- Active tagList --> 
-      <div id="activeTags" class="row">
+      <div id="activeTags" class="row px-3">
         <ul id="activeTags_list" class="list-inline col-12 pl-0">
         </ul>      
       </div>
 
       <!-- Advanced search field --> 
-      <div class="row mb-4">
+      <div class="row mb-4 px-3">
         <div id="tagSelect_ingredients" class="col-2 bg-primary border rounded heightControl">
           <div class="row">
             <button id="btnOpen_ingredients" class="w-100 btn btn-primary btn-lg font-weight-bold text-left"> Ingredients <i class="float-right pt-3 fas fa-chevron-down"></i> </button>
@@ -92,35 +92,7 @@
       </div>
 
       <!-- RecipeCard gallery --> 
-      <div id="recipeGallery" class="row mb-5">
-        <div class="col-12 col-lg-4 p-0 card border-light shadow-sm bg-light">
-          <img src="https://via.placeholder.com/380x180.png" class="bd-placeholder-img card-img-top" alt="Placeholder image" height="180">
-          <div class="card-body pb-0">
-            <div class="row">
-              <div class="col">
-                <h2> Coco Lemonade </h2>
-              </div>
-
-              <div class="col">
-                <span class="font-weight-bold d-block text-right"> <i class="far fa-clock"></i> 10 min </span>
-              </div>
-            </div>
-
-            <div class="row">
-              <ul class="col list-unstyled cardFontSize">
-                <li> <strong> Coconut milk: </strong> 400ml </li>
-                <li> <strong> Lemon juice: </strong> 2 </li>
-                <li> <strong> Coconut cream: </strong> 4 cuillères </li>
-                <li> <strong> Sugar: </strong> 20g </li>
-                <li> <strong> Ice cubes: </strong> 2 </li>
-              </ul>
-
-              <div class="col">
-                <p class="robotoFont cardFontSize"> Put the ice cubes in the blender, add the milk, coconut cream, the juice of 2 lemons and the sugar. Blend until you get the desired texture. </p>
-              </div>
-            </div>
-          </div>       
-        </div>
+      <div id="recipeGallery" class="row mb-5 pr-4">
       </div>
     </div>
 
@@ -133,5 +105,4 @@
     <script src="tags.js"></script>
     <script src="recipeCards.js"></script>
   </body>
-
 </html>
