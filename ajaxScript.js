@@ -23,16 +23,20 @@ getAsync().then((data) =>
     generateActiveTagsList(activeTagList, devicesList, "device");
     generateActiveTagsList(activeTagList, ustensilsList, "ustensil");
 
-    addEvent_onClick_dropboxTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients");
-    addEvent_onClick_dropboxTags(devicesTags.tagList, devicesList, activeTagList, "devices");
-    addEvent_onClick_dropboxTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils");
+    addEvent_onClick_dropboxTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients", recipeGallery);
+    addEvent_onClick_dropboxTags(devicesTags.tagList, devicesList, activeTagList, "devices", recipeGallery);
+    addEvent_onClick_dropboxTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils", recipeGallery);
 
-    addEvent_onClick_activeTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients");
-    addEvent_onClick_activeTags(devicesTags.tagList, devicesList, activeTagList, "devices");
-    addEvent_onClick_activeTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils");
+    addEvent_onClick_activeTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients", recipeGallery);
+    addEvent_onClick_activeTags(devicesTags.tagList, devicesList, activeTagList, "devices", recipeGallery);
+    addEvent_onClick_activeTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils", recipeGallery);
 
     generateRecipeCardGallery(recipeGallery, recipeStructure);
-  });
+
+    initSearchTagElement_event(ingredientsTags, ingredientsList);
+    initSearchTagElement_event(devicesTags, devicesList);
+    initSearchTagElement_event(ustensilsTags, ustensilsList);
+ });
 
 // Extract, standarize and initialize the list for each tag type
 function generateList(type, data){
@@ -74,6 +78,7 @@ function getIngredientsList(ingredientsData, tagList){
     let tag = new Array();
     tag.name = (ingredientsData[i].ingredient).substring(0, 1).toUpperCase() + (ingredientsData[i].ingredient).substring(1).toLowerCase();
     tag.active = false;
+    tag.show = true;
     tagList.push(tag);
   }
   return tagList;
@@ -83,6 +88,7 @@ function getDevicesList(devicesData, tagList){
   let tag = new Array();
   tag.name = (devicesData).substring(0, 1).toUpperCase() + (devicesData).substring(1).toLowerCase();
   tag.active = false;
+  tag.show = true;
   tagList.push(tag);
   return tagList;
 }
@@ -92,6 +98,7 @@ function getUstensilsList(ustensilsData, tagList){
     let tag = new Array();
     tag.name = (ustensilsData[i]).substring(0, 1).toUpperCase() + (ustensilsData[i]).substring(1).toLowerCase();
     tag.active = false;
+    tag.show = true;
     tagList.push(tag);
   }
 

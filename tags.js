@@ -115,21 +115,20 @@ function generateTagList(element, list){
         });
     }
 
-    tagQuantityControl(element, list);
+    dropBoxUpdate(element, list);
 }
 
 // DropBox listed tags update based on 'active' status of the tagLists
-function tagQuantityControl(element, tagList){
-    var nbTag = 0;
+function dropBoxUpdate(element, tagList){
+    let nbTag = 0;
+
     for(let i=0; i<tagList.length; i++){
+        element.children().eq(i).hide();
         if(nbTag < 30){
-            if(!tagList[i].active){
+            if(!tagList[i].active && tagList[i].show){
                 element.children().eq(i).show();
                 nbTag++;
             }
-        }
-        else{
-            element.children().eq(i).hide();
         }
     }
 }
@@ -168,13 +167,13 @@ function generateActiveTag(type, name){
 }
 
 // Events on dropBox/active tagList elements to toggle tags and 'active' parameter in tagList
-function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement, tagsType)
+function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement, tagsType, gallery)
 {
     for(let i=0; i<dropboxElement.children().length; i++){
         dropboxElement.children().eq(i).on('click', function(){
             dropboxElement.children().eq(i).hide();
             tagList[i].active = true;
-            tagQuantityControl(dropboxElement, tagList);
+            dropBoxUpdate(dropboxElement, tagList);
             
             var typeElement;
             switch(tagsType) {
@@ -196,11 +195,14 @@ function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement
             }
 
             typeElement.show();
+
+            const newOffset = 335 + activeTagsElement.height();
+            gallery.css("top", newOffset + "px");
         });
     }
 }
 
-function addEvent_onClick_activeTags(dropboxElement, tagList, activeTagsElement, tagsType)
+function addEvent_onClick_activeTags(dropboxElement, tagList, activeTagsElement, tagsType, gallery)
 {
     var activeTagList_indexOffset;
     switch(tagsType) {
@@ -225,12 +227,33 @@ function addEvent_onClick_activeTags(dropboxElement, tagList, activeTagsElement,
         activeTagsElement.children().eq(i).on('click', function(){
             activeTagsElement.children().eq(i).hide();
             tagList[i-activeTagList_indexOffset].active = false;
-            tagQuantityControl(dropboxElement, tagList);
+            dropBoxUpdate(dropboxElement, tagList);
 
             dropboxElement.children().eq(i-activeTagList_indexOffset).show();
+        
+            const newOffset = 335 + activeTagsElement.height();
+            gallery.css("top", newOffset + "px");
         });
     }
 }
+
+function initSearchTagElement_event(element, tagList){
+    element.searchBar.on('keyup', function(e){
+        const searchTag = e.target.value.toLowerCase();
+        for(let i=0; i<tagList.length;i++){
+            if((tagList[i].name.toLowerCase()).includes(searchTag)){
+                tagList[i].show = true;
+            }
+            else{
+                tagList[i].show = false;
+            }
+        }
+
+        dropBoxUpdate(element.tagList, tagList);
+    });
+}
+
+
 
 ///////// HTML code for a tag in the dropbox
 /*  
