@@ -79,6 +79,7 @@ function getIngredientsList(ingredientsData, tagList){
     tag.name = (ingredientsData[i].ingredient).substring(0, 1).toUpperCase() + (ingredientsData[i].ingredient).substring(1).toLowerCase();
     tag.active = false;
     tag.show = true;
+    tag.relevant = true;
     tagList.push(tag);
   }
   return tagList;
@@ -89,6 +90,7 @@ function getDevicesList(devicesData, tagList){
   tag.name = (devicesData).substring(0, 1).toUpperCase() + (devicesData).substring(1).toLowerCase();
   tag.active = false;
   tag.show = true;
+  tag.relevant = true;
   tagList.push(tag);
   return tagList;
 }
@@ -99,6 +101,7 @@ function getUstensilsList(ustensilsData, tagList){
     tag.name = (ustensilsData[i]).substring(0, 1).toUpperCase() + (ustensilsData[i]).substring(1).toLowerCase();
     tag.active = false;
     tag.show = true;
+    tag.relevant = true;
     tagList.push(tag);
   }
 

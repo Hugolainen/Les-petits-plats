@@ -118,14 +118,14 @@ function generateTagList(element, list){
     dropBoxUpdate(element, list);
 }
 
-// DropBox listed tags update based on 'active' status of the tagLists
+// DropBox listed tags update based on 'active' 'show' and 'relevant' status of the tagLists
 function dropBoxUpdate(element, tagList){
     let nbTag = 0;
 
     for(let i=0; i<tagList.length; i++){
         element.children().eq(i).hide();
         if(nbTag < 30){
-            if(!tagList[i].active && tagList[i].show){
+            if(!tagList[i].active && tagList[i].show && tagList[i].relevant){
                 element.children().eq(i).show();
                 nbTag++;
             }
