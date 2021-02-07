@@ -13,6 +13,7 @@ getAsync().then((data) =>
     const ustensilsList = generateList("ustensils", recipeStructure);
     index_activeTagList_devices = ingredientsList.length;
     index_activeTagList_ustensils = index_activeTagList_devices + devicesList.length;
+    const keywordStruct = generateKeywordStruct(recipeStructure);
 
     // Generation of the tags in the dropBox menus
     generateTagList(ingredientsTags.tagList, ingredientsList);
@@ -36,6 +37,10 @@ getAsync().then((data) =>
     initSearchTagElement_event(ingredientsTags, ingredientsList);
     initSearchTagElement_event(devicesTags, devicesList);
     initSearchTagElement_event(ustensilsTags, ustensilsList);
+
+
+
+
  });
 
 // Extract, standarize and initialize the list for each tag type
@@ -76,7 +81,7 @@ function generateList(type, data){
 function getIngredientsList(ingredientsData, tagList){
   for(var i=0; i<ingredientsData.length; i++){
     let tag = new Array();
-    tag.name = (ingredientsData[i].ingredient).substring(0, 1).toUpperCase() + (ingredientsData[i].ingredient).substring(1).toLowerCase();
+    tag.name = ingredientsData[i].ingredient;
     tag.active = false;
     tag.show = true;
     tag.relevant = true;
@@ -87,7 +92,7 @@ function getIngredientsList(ingredientsData, tagList){
 
 function getDevicesList(devicesData, tagList){
   let tag = new Array();
-  tag.name = (devicesData).substring(0, 1).toUpperCase() + (devicesData).substring(1).toLowerCase();
+  tag.name = devicesData;
   tag.active = false;
   tag.show = true;
   tag.relevant = true;
@@ -98,7 +103,7 @@ function getDevicesList(devicesData, tagList){
 function getUstensilsList(ustensilsData, tagList){
   for(var i=0; i<ustensilsData.length; i++){
     let tag = new Array();
-    tag.name = (ustensilsData[i]).substring(0, 1).toUpperCase() + (ustensilsData[i]).substring(1).toLowerCase();
+    tag.name = ustensilsData[i];
     tag.active = false;
     tag.show = true;
     tag.relevant = true;
@@ -106,4 +111,40 @@ function getUstensilsList(ustensilsData, tagList){
   }
 
   return tagList;
+}
+
+
+// Generate the keyword lists needed for the search engine
+function generateKeywordStruct(recipe){
+  var keywordStructList = new Array();
+  for(let i=0; i<recipe.length; i++){
+    keywordStructList[i] = getKeywordStruct(recipe[i]);
+  }
+
+  return keywordStructList;
+}
+
+
+function getKeywordStruct(recipe){
+  var keywordStruct = new Array();
+  keywordStruct.keywordList = recipe.name + " " + recipe.description + " ";
+  keywordStruct.ingredientTags = "";
+  keywordStruct.deviceTags = recipe.appliance;
+  keywordStruct.ustensilTags = "";
+
+  for(let i=0; i<recipe.ingredients.length; i++){
+    keywordStruct.keywordList += recipe.ingredients[i].ingredient + " ";
+    keywordStruct.ingredientTags += recipe.ingredients[i].ingredient + " ";
+  }
+  
+  for(let i=0; i<recipe.ustensils.length; i++){
+    keywordStruct.ustensilTags += recipe.ustensils[i] + " ";
+  }
+
+  // TO DO
+  // Change tag from string to array (if needed)
+  // Order the keyword list
+
+
+  return keywordStruct;
 }

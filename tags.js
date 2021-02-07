@@ -111,10 +111,8 @@ function generateTagList(element, list){
     for(var i=0; i<list.length;i++){
         element.append(generateTag(list[i].name));
         element.children().eq(i).on('click', function(event){
-            
         });
     }
-
     dropBoxUpdate(element, list);
 }
 
@@ -141,11 +139,12 @@ function generateActiveTagsList(activeTagsListElement, tagList, type){
 }
 
 function generateActiveTag(type, name){
+    //let capsName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     var activeTag = $("<li>" + name + "<i class=\"ml-2 far fa-times-circle\"></i> </li>");
     activeTag.addClass("list-inline-item");
     activeTag.addClass("mb-1");
     activeTag.addClass("btn");
-
+    
     if(type=="ingredient")
     {
         activeTag.addClass("btn-primary");
