@@ -38,8 +38,7 @@ getAsync().then((data) =>
     initSearchTagElement_event(devicesTags, devicesList);
     initSearchTagElement_event(ustensilsTags, ustensilsList);
 
-
-
+    initGlobalSearchBar(globalSearchBar, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags, devicesTags, ustensilsTags);
 
  });
 
@@ -127,24 +126,45 @@ function generateKeywordStruct(recipe){
 
 function getKeywordStruct(recipe){
   var keywordStruct = new Array();
-  keywordStruct.keywordList = recipe.name + " " + recipe.description + " ";
-  keywordStruct.ingredientTags = "";
+  keywordStruct.keywordList = new Array();
+  var keywordBuffer = recipe.name + " " + recipe.description;
+  keywordStruct.ingredientTags = new Array();
   keywordStruct.deviceTags = recipe.appliance;
-  keywordStruct.ustensilTags = "";
+  keywordStruct.ustensilTags = new Array();
 
   for(let i=0; i<recipe.ingredients.length; i++){
-    keywordStruct.keywordList += recipe.ingredients[i].ingredient + " ";
-    keywordStruct.ingredientTags += recipe.ingredients[i].ingredient + " ";
+    keywordBuffer += " " + recipe.ingredients[i].ingredient;
+    keywordStruct.ingredientTags.push(recipe.ingredients[i].ingredient);
   }
   
   for(let i=0; i<recipe.ustensils.length; i++){
-    keywordStruct.ustensilTags += recipe.ustensils[i] + " ";
+    keywordStruct.ustensilTags.push(recipe.ustensils[i]);
   }
 
-  // TO DO
-  // Change tag from string to array (if needed)
-  // Order the keyword list
+  // Lower case
+  keywordBuffer= keywordBuffer.toLowerCase();
 
+  // Delete ponctuation
+  keywordBuffer= keywordBuffer.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+
+  // Transform array from the string
+  keywordBuffer = keywordBuffer.trim().split(" ");
+
+  // Filter words shorter than 3 char
+  keywordBuffer = keywordBuffer.filter( function( element ) {
+    return element.length >= 3;
+  });
+
+  // Filter duplicates
+  keywordBuffer = [...new Set(keywordBuffer)];
+
+  // Old way to filter duplicates
+  //keywordStruct.keywordList = keywordBuffer.filter((v, i, a) => a.indexOf(v) === i);
+
+  // Sort array Alphabeticaly
+  keywordBuffer = keywordBuffer.sort();
+
+  keywordStruct.keywordList = keywordBuffer;
 
   return keywordStruct;
 }
