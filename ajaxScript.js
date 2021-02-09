@@ -39,7 +39,7 @@ getAsync().then((data) =>
     initSearchTagElement_event(ustensilsTags, ustensilsList);
 
     initGlobalSearchBar(globalSearchBar, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags, devicesTags, ustensilsTags);
-
+    indexOf_test(ingredientsList, "Sugar");
  });
 
 // Extract, standarize and initialize the list for each tag type
@@ -131,6 +131,7 @@ function getKeywordStruct(recipe){
   keywordStruct.ingredientTags = new Array();
   keywordStruct.deviceTags = recipe.appliance;
   keywordStruct.ustensilTags = new Array();
+  keywordStruct.relevant = true;
 
   for(let i=0; i<recipe.ingredients.length; i++){
     keywordBuffer += " " + recipe.ingredients[i].ingredient;
