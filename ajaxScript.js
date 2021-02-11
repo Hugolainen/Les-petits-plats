@@ -8,14 +8,7 @@ async function getAsync()
 getAsync().then((data) => 
 {
     const recipeStructure = data.recipes;
-    const ingredientsList = generateList("ingredients", recipeStructure);
-    const devicesList = generateList("devices", recipeStructure);
-    const ustensilsList = generateList("ustensils", recipeStructure);
-
     const tagListStruct = generatelistStruct(recipeStructure);
-
-    index_activeTagList_devices = ingredientsList.length;
-    index_activeTagList_ustensils = index_activeTagList_devices + devicesList.length;
     const keywordStruct = generateKeywordStruct(recipeStructure);
 
     // Generation of the content and initialisation of the events

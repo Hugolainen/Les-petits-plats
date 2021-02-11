@@ -7,12 +7,13 @@ function initGlobalSearchBar(gallery, searchBarElement, keywordStruct, listof_dr
         const searchWord = e.target.value.toLowerCase();
 
         if(searchWord.length >= 3){
-            searchEngine(keywordStruct, searchWord, listof_dropBox_tagList, listof_tagList);
+            searchEngine(keywordStruct, searchWord);
         }
         else{
             cleanSearchRelevance(keywordStruct);
         }
 
+        tag_relevanceUpdate(keywordStruct, listof_tagList);
         recipe_RelevanceUpdate(keywordStruct);
         recipeGalleryUpdate(gallery, keywordStruct);
         tagList_relevanceUpdate(keywordStruct, listof_tagList);
@@ -22,7 +23,7 @@ function initGlobalSearchBar(gallery, searchBarElement, keywordStruct, listof_dr
 
 
 
-function searchEngine(keywordStruct, searchWord, listof_dropBox_tagList, listof_tagList){
+function searchEngine(keywordStruct, searchWord){
     var noMatch = true;
     for(let i=0; i<keywordStruct.length;i++){
         if(searchAlgorithm(keywordStruct[i].keywordList, searchWord)){
@@ -37,9 +38,6 @@ function searchEngine(keywordStruct, searchWord, listof_dropBox_tagList, listof_
     if(noMatch){
         console.log("no match");
     }
-
-    tagList_relevanceUpdate(keywordStruct, listof_tagList);
-    dropBoxUpdate_global(listof_dropBox_tagList, listof_tagList);
 }
 
 // When searched word is shorter than 3 characters, all recipes are relevant
@@ -73,7 +71,7 @@ function recipeGalleryUpdate(gallery, keywordStruct){
     }
 }
 
-
+// Update the relevance for the Tags in the dropbox
 function tagList_relevanceUpdate(keywordStruct, listof_tagList){
     cleanTagListRelevance(listof_tagList);
     
@@ -94,17 +92,37 @@ function tagList_relevanceUpdate(keywordStruct, listof_tagList){
     }
 }
 
-function tag_relevanceUpdate(keywordStruct, ingredientTagList, deviceTagList, ustensilTagList){
+// Update the relevance of the recipes based on the ActiveTags
+function tag_relevanceUpdate(keywordStruct, listof_tagList){
     for(let i=0; i<keywordStruct.length;i++){
         keywordStruct[i].tagRelevant = true;
     }
 
-    // Device relevance
-    for(let i=0; i<deviceTagList.length; i++){
-        if(deviceTagList[i].active){
+    // Ingredient relevance
+    for(let i=0; i<listof_tagList[0].tags.length; i++){
+        if(listof_tagList[0].tags[i].active){
             for(let j=0; j<keywordStruct.length; j++){
                 if(keywordStruct[j].tagRelevant){
-                    if(deviceTagList[i].name == keywordStruct[j].deviceTags){
+                    for(let k=0; k<keywordStruct[j].ingredientTags.length; k++){
+                        if(listof_tagList[0].tags[i].name == keywordStruct[j].ingredientTags[k]){
+                            keywordStruct[j].tagRelevant = true;
+                            break;
+                        }
+                        else{
+                            keywordStruct[j].tagRelevant = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Device relevance
+    for(let i=0; i<listof_tagList[1].tags.length; i++){
+        if(listof_tagList[1].tags[i].active){
+            for(let j=0; j<keywordStruct.length; j++){
+                if(keywordStruct[j].tagRelevant){
+                    if(listof_tagList[1].tags[i].name == keywordStruct[j].deviceTags){
                         keywordStruct[j].tagRelevant = true;
                         break;
                     }
@@ -114,16 +132,15 @@ function tag_relevanceUpdate(keywordStruct, ingredientTagList, deviceTagList, us
                 }
             }
         }
-        deviceTagList[i].relevant = false;
     }
 
     // Ustensil relevance
-    for(let i=0; i<ustensilTagList.length; i++){
-        if(ustensilTagList[i].active){
+    for(let i=0; i<listof_tagList[2].tags.length; i++){
+        if(listof_tagList[2].tags[i].active){
             for(let j=0; j<keywordStruct.length; j++){
                 if(keywordStruct[j].tagRelevant){
                     for(let k=0; k<keywordStruct[j].ustensilTags.length; k++){
-                        if(ustensilTagList[i].name == keywordStruct[j].ustensilTags[k]){
+                        if(listof_tagList[2].tags[i].name == keywordStruct[j].ustensilTags[k]){
                             keywordStruct[j].tagRelevant = true;
                             break;
                         }
@@ -133,44 +150,6 @@ function tag_relevanceUpdate(keywordStruct, ingredientTagList, deviceTagList, us
                     }
                 }
             }
-        }
-        ustensilTagList[i].relevant = false;
-    }
-
-    // Ingredient relevance
-    for(let i=0; i<ingredientTagList.length; i++){
-        if(ingredientTagList[i].active){
-            for(let j=0; j<keywordStruct.length; j++){
-                if(keywordStruct[j].tagRelevant){
-                    for(let k=0; k<keywordStruct[j].ingredientTags.length; k++){
-                        if(ingredientTagList[i].name == keywordStruct[j].ingredientTags[k]){
-                            keywordStruct[j].tagRelevant = true;
-                            break;
-                        }
-                        else{
-                            keywordStruct[j].tagRelevant = false;
-                        }
-                    }
-                }
-            }
-        }
-        ingredientTagList[i].relevant = false;
-    }
-
-    for(let i=0; i<keywordStruct.length;i++){
-        if(keywordStruct[i].tagRelevant == true){
-            for(let j=0; j<keywordStruct[i].ingredientTags.length; j++){
-                let index = tagList_indexOfByName(ingredientTagList, keywordStruct[i].ingredientTags[j]);
-                ingredientTagList[index].relevant = true;
-            }
-
-            for(let j=0; j<keywordStruct[i].ustensilTags.length; j++){
-                let index = tagList_indexOfByName(ustensilTagList, keywordStruct[i].ustensilTags[j]);
-                ustensilTagList[index].relevant = true;
-            }
-
-            let index = tagList_indexOfByName(deviceTagList, keywordStruct[i].deviceTags);
-            deviceTagList[index].relevant = true;
         }
     }
 }

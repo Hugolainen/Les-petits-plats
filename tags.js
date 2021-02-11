@@ -183,6 +183,12 @@ function addEvent_onClick_dropboxTags(listof_dropBox_tagList, listof_tagList, ac
 
             const newOffset = 335 + activeTag_tagList.height();
             gallery.css("top", newOffset + "px");
+
+            tag_relevanceUpdate(keywordStruct, listof_tagList);
+            recipe_RelevanceUpdate(keywordStruct);
+            recipeGalleryUpdate(gallery, keywordStruct);
+            tagList_relevanceUpdate(keywordStruct, listof_tagList);
+            dropBoxUpdate_global(listof_dropBox_tagList, listof_tagList);
         });
     }
 }
@@ -224,6 +230,12 @@ function addEvent_onClick_activeTags(listof_dropBox_tagList, listof_tagList, act
         
             const newOffset = 335 + activeTag_tagList.height();
             gallery.css("top", newOffset + "px");
+
+            tag_relevanceUpdate(keywordStruct, listof_tagList);
+            recipe_RelevanceUpdate(keywordStruct);
+            recipeGalleryUpdate(gallery, keywordStruct);
+            tagList_relevanceUpdate(keywordStruct, listof_tagList);
+            dropBoxUpdate_global(listof_dropBox_tagList, listof_tagList);
         });
     }
 }
