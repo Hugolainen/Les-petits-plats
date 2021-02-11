@@ -136,39 +136,51 @@ function generateActiveTag(type, name){
 }
 
 // Events on dropBox/active tagList elements to toggle tags and 'active' parameter in tagList
-function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement, tagsType, gallery, keywordStruct, ingredientTagList, deviceTagList, ustensilTagList, ingredientDropBox, deviceDropbox, ustensilDropbox)
+function addEvent_onClick(listof_dropBox_tagList, listof_tagList, activeTag_tagList, gallery, keywordStruct)
 {
-    for(let i=0; i<dropboxElement.children().length; i++){
+    for(let i=0; i<listof_tagList.length; i++){
+        addEvent_onClick_dropboxTags(listof_dropBox_tagList, listof_tagList, activeTag_tagList, gallery, keywordStruct, i);
+    }
+}
+
+function addEvent_onClick_dropboxTags(listof_dropBox_tagList, listof_tagList, activeTag_tagList, gallery, keywordStruct, index)
+{
+    let activeTagList_offset;
+    let dropboxElement;
+    switch(listof_tagList[index].type) {
+        case "ingredients":
+            dropboxElement = listof_dropBox_tagList.ingredients;
+            activeTagList_offset = 0;
+          break;
+
+        case "devices":
+            dropboxElement = listof_dropBox_tagList.devices;
+            activeTagList_offset = listof_tagList[0].tags.length;
+          break;
+
+        case "ustensils":
+            dropboxElement = listof_dropBox_tagList.ustensils;
+            activeTagList_offset = listof_tagList[0].tags.length + listof_tagList[1].tags.length;
+        break;
+        
+        default:
+            console.log("Error: can't find dropBox");
+            return 0;
+    }
+
+    for(let i=0; i<listof_tagList[index].tags.length; i++){
         dropboxElement.children().eq(i).on('click', function(){
             dropboxElement.children().eq(i).hide();
-            tagList[i].active = true;
-            tag_relevanceUpdate(keywordStruct, ingredientTagList, deviceTagList, ustensilTagList);
-            dropBoxUpdate(ingredientDropBox, ingredientTagList);
-            dropBoxUpdate(deviceDropbox, deviceTagList);
-            dropBoxUpdate(ustensilDropbox, ustensilTagList);
+            listof_tagList[index].tags[i].active = true;
+
+            // tag_relevanceUpdate(keywordStruct, ingredientTagList, deviceTagList, ustensilTagList);
+            dropBoxUpdate_global(listof_dropBox_tagList, listof_tagList);
             
-            var typeElement;
-            switch(tagsType) {
-                case "ingredients":
-                    typeElement = activeTagsElement.children().eq(i);
-                  break;
+            var activatedTag;
+            activatedTag = activeTag_tagList.children().eq(i + activeTagList_offset);
+            activatedTag.show();
 
-                case "devices":
-                    typeElement = activeTagsElement.children().eq(i + index_activeTagList_devices);
-                  break;
-
-                case "ustensils":
-                    typeElement = activeTagsElement.children().eq(i + index_activeTagList_ustensils);
-                break;
-                
-                default:
-                    console.log("Error: addEvent_onClick_dropboxTags -> unknwown type");
-                    return 0;
-            }
-
-            typeElement.show();
-
-            const newOffset = 335 + activeTagsElement.height();
+            const newOffset = 335 + activeTag_tagList.height();
             gallery.css("top", newOffset + "px");
         });
     }
@@ -211,6 +223,9 @@ function addEvent_onClick_activeTags(dropboxElement, tagList, activeTagsElement,
         });
     }
 }
+
+
+
 
 function initSearchTagElement_event(element, tagList){
     element.searchBar.on('keyup', function(e){
