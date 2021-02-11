@@ -19,9 +19,7 @@ getAsync().then((data) =>
     const keywordStruct = generateKeywordStruct(recipeStructure);
 
     // Generation of the tags in the dropBox menus
-    generateTagList(ingredientsTags.tagList, ingredientsList);
-    generateTagList(devicesTags.tagList, devicesList);
-    generateTagList(ustensilsTags.tagList, ustensilsList);
+    generateDropBox_TagLists(elementDropBox_TagList, tagListStruct);
 
     generateActiveTagsList(activeTagList, ingredientsList, "ingredient");
     generateActiveTagsList(activeTagList, devicesList, "device");
@@ -57,7 +55,7 @@ function generatelistStruct(data){
   var deviceList = new Array();
   deviceList.type = "devices";
   deviceList.tags = generateList("devices", data);
-  struct[2] = deviceList;
+  struct[1] = deviceList;
 
   var ustensilList = new Array();
   ustensilList.type = "ustensils";

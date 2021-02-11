@@ -1,4 +1,4 @@
-var ingredientsTags = new Array;
+var ingredientsTags = new Array();
 ingredientsTags.element = $("#tagSelect_ingredients");
 ingredientsTags.btnOpen = $("#btnOpen_ingredients");
 ingredientsTags.btnClose = $("#btnClose_ingredients");
@@ -6,7 +6,7 @@ ingredientsTags.searchBar = $("#searchBar_ingredients");
 ingredientsTags.dropdown = $("#dropdown_ingredients");
 ingredientsTags.tagList = $("#tagList_ingredients");
 
-var devicesTags = new Array;
+var devicesTags = new Array();
 devicesTags.element = $("#tagSelect_devices");
 devicesTags.btnOpen = $("#btnOpen_devices");
 devicesTags.btnClose = $("#btnClose_devices");
@@ -14,13 +14,18 @@ devicesTags.searchBar = $("#searchBar_devices");
 devicesTags.dropdown = $("#dropdown_devices");
 devicesTags.tagList = $("#tagList_devices");
 
-var ustensilsTags = new Array;
+var ustensilsTags = new Array();
 ustensilsTags.element = $("#tagSelect_ustensils");
 ustensilsTags.btnOpen = $("#btnOpen_ustensils");
 ustensilsTags.btnClose = $("#btnClose_ustensils");
 ustensilsTags.searchBar = $("#searchBar_ustensils");
 ustensilsTags.dropdown = $("#dropdown_ustensils");
 ustensilsTags.tagList = $("#tagList_ustensils");
+
+var elementDropBox_TagList = new Array();
+elementDropBox_TagList.ingredients = ingredientsTags.tagList;
+elementDropBox_TagList.devices = devicesTags.tagList;
+elementDropBox_TagList.ustensils = ustensilsTags.tagList;
 
 var activeTagList = $("#activeTags_list");
 var index_activeTagList_devices;
@@ -37,60 +42,21 @@ initTags(devicesTags);
 initTags(ustensilsTags);
 
 
-// Opening and closing of tags search
-function tags_toggleOn(object){
-    object["element"].removeClass('col-2');
-    object["element"].removeClass('heightControl');
-    object["element"].addClass('col-6');
 
-    object["btnOpen"].hide();
-    object["searchBar"].show();
-    object["btnClose"].show();
-    object["dropdown"].show();
-    object["searchBar"].focus();
+function generateDropBox_TagLists(listof_dropBox_tagList, listof_tagList){
+    generateTagList(listof_dropBox_tagList.ingredients, listof_tagList[0].tags);
+    generateTagList(listof_dropBox_tagList.devices, listof_tagList[1].tags);
+    generateTagList(listof_dropBox_tagList.ustensils, listof_tagList[2].tags);
 }
 
-function tags_toggleOff(object){
-    object["element"].removeClass('col-6');
-    object["element"].addClass('col-2');
-    object["element"].addClass('heightControl');
-
-    object["btnOpen"].show();
-    object["searchBar"].hide();
-    object["btnClose"].hide();
-    object["dropdown"].hide();
+function generateTagList(element, list){
+    for(var i=0; i<list.length;i++){
+        element.append(generateTag(list[i].name));
+        element.children().eq(i).on('click', function(event){
+        });
+    }
+    dropBoxUpdate(element, list);
 }
-
-ingredientsTags["btnOpen"].on('click', function(event) {
-    tags_toggleOn(ingredientsTags);
-    tags_toggleOff(ustensilsTags);
-    tags_toggleOff(devicesTags);
-});
-
-ingredientsTags["btnClose"].on('click', function(event) {
-    tags_toggleOff(ingredientsTags);
-});
-
-devicesTags["btnOpen"].on('click', function(event) {
-    tags_toggleOn(devicesTags);
-    tags_toggleOff(ingredientsTags);
-    tags_toggleOff(ustensilsTags);
-});
-
-devicesTags["btnClose"].on('click', function(event) {
-    tags_toggleOff(devicesTags);
-});
-
-ustensilsTags["btnOpen"].on('click', function(event) {
-    tags_toggleOn(ustensilsTags);
-    tags_toggleOff(ingredientsTags);
-    tags_toggleOff(devicesTags);
-});
-
-ustensilsTags["btnClose"].on('click', function(event) {
-    tags_toggleOff(ustensilsTags);
-});
-
 
 // Dropbox tagList elements generation
 function generateTag(newTag){
@@ -107,14 +73,6 @@ function generateTag(newTag){
     return tag;
 }
 
-function generateTagList(element, list){
-    for(var i=0; i<list.length;i++){
-        element.append(generateTag(list[i].name));
-        element.children().eq(i).on('click', function(event){
-        });
-    }
-    dropBoxUpdate(element, list);
-}
 
 // DropBox listed tags update based on 'active' 'show' and 'relevant' status of the tagLists
 function dropBoxUpdate(element, tagList){
@@ -258,6 +216,60 @@ function initSearchTagElement_event(element, tagList){
     });
 }
 
+
+// Opening and closing of tags search
+function tags_toggleOn(object){
+    object["element"].removeClass('col-2');
+    object["element"].removeClass('heightControl');
+    object["element"].addClass('col-6');
+
+    object["btnOpen"].hide();
+    object["searchBar"].show();
+    object["btnClose"].show();
+    object["dropdown"].show();
+    object["searchBar"].focus();
+}
+
+function tags_toggleOff(object){
+    object["element"].removeClass('col-6');
+    object["element"].addClass('col-2');
+    object["element"].addClass('heightControl');
+
+    object["btnOpen"].show();
+    object["searchBar"].hide();
+    object["btnClose"].hide();
+    object["dropdown"].hide();
+}
+
+ingredientsTags["btnOpen"].on('click', function(event) {
+    tags_toggleOn(ingredientsTags);
+    tags_toggleOff(ustensilsTags);
+    tags_toggleOff(devicesTags);
+});
+
+ingredientsTags["btnClose"].on('click', function(event) {
+    tags_toggleOff(ingredientsTags);
+});
+
+devicesTags["btnOpen"].on('click', function(event) {
+    tags_toggleOn(devicesTags);
+    tags_toggleOff(ingredientsTags);
+    tags_toggleOff(ustensilsTags);
+});
+
+devicesTags["btnClose"].on('click', function(event) {
+    tags_toggleOff(devicesTags);
+});
+
+ustensilsTags["btnOpen"].on('click', function(event) {
+    tags_toggleOn(ustensilsTags);
+    tags_toggleOff(ingredientsTags);
+    tags_toggleOff(devicesTags);
+});
+
+ustensilsTags["btnClose"].on('click', function(event) {
+    tags_toggleOff(ustensilsTags);
+});
 
 
 ///////// HTML code for a tag in the dropbox
