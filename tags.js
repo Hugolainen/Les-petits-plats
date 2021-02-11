@@ -43,10 +43,12 @@ initTags(ustensilsTags);
 
 
 
-function generateDropBox_TagLists(listof_dropBox_tagList, listof_tagList){
+function generateDropBox_tagLists(listof_dropBox_tagList, listof_tagList){
     generateTagList(listof_dropBox_tagList.ingredients, listof_tagList[0].tags);
     generateTagList(listof_dropBox_tagList.devices, listof_tagList[1].tags);
     generateTagList(listof_dropBox_tagList.ustensils, listof_tagList[2].tags);
+    
+    dropBoxUpdate_global(listof_dropBox_tagList, listof_tagList);
 }
 
 function generateTagList(element, list){
@@ -55,7 +57,6 @@ function generateTagList(element, list){
         element.children().eq(i).on('click', function(event){
         });
     }
-    dropBoxUpdate(element, list);
 }
 
 // Dropbox tagList elements generation
@@ -73,8 +74,13 @@ function generateTag(newTag){
     return tag;
 }
 
-
 // DropBox listed tags update based on 'active' 'show' and 'relevant' status of the tagLists
+function dropBoxUpdate_global(listof_dropBox_tagList, listof_tagList){
+    dropBoxUpdate(listof_dropBox_tagList.ingredients, listof_tagList[0].tags);
+    dropBoxUpdate(listof_dropBox_tagList.devices, listof_tagList[1].tags);
+    dropBoxUpdate(listof_dropBox_tagList.ustensils, listof_tagList[2].tags);
+}
+
 function dropBoxUpdate(element, tagList){
     let nbTag = 0;
 
@@ -90,9 +96,15 @@ function dropBoxUpdate(element, tagList){
 }
 
 // Active tagList elements generation
-function generateActiveTagsList(activeTagsListElement, tagList, type){
-    for(let i=0; i<tagList.length; i++){
-        activeTagsListElement.append(generateActiveTag(type, tagList[i].name));
+function generateActiveTags_tagLists(activeTagsListElement, listof_tagList){
+    generateActiveTagsList(activeTagsListElement, listof_tagList[0]);
+    generateActiveTagsList(activeTagsListElement, listof_tagList[1]);
+    generateActiveTagsList(activeTagsListElement, listof_tagList[2]);
+}
+
+function generateActiveTagsList(activeTagsListElement, tagList){
+    for(let i=0; i<tagList.tags.length; i++){
+        activeTagsListElement.append(generateActiveTag(tagList.type, tagList.tags[i].name));
     }
 }
 
@@ -103,15 +115,15 @@ function generateActiveTag(type, name){
     activeTag.addClass("mb-1");
     activeTag.addClass("btn");
     
-    if(type=="ingredient")
+    if(type=="ingredients")
     {
         activeTag.addClass("btn-primary");
     }
-    else if(type=="device"){
+    else if(type=="devices"){
         activeTag.addClass("btn-success");
         activeTag.addClass("text-white");
     }
-    else if(type=="ustensil"){
+    else if(type=="ustensils"){
         activeTag.addClass("btn-danger");
     }
     else{
