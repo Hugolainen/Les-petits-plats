@@ -11,6 +11,9 @@ getAsync().then((data) =>
     const ingredientsList = generateList("ingredients", recipeStructure);
     const devicesList = generateList("devices", recipeStructure);
     const ustensilsList = generateList("ustensils", recipeStructure);
+
+    const tagListStruct = generatelistStruct(recipeStructure);
+
     index_activeTagList_devices = ingredientsList.length;
     index_activeTagList_ustensils = index_activeTagList_devices + devicesList.length;
     const keywordStruct = generateKeywordStruct(recipeStructure);
@@ -24,13 +27,13 @@ getAsync().then((data) =>
     generateActiveTagsList(activeTagList, devicesList, "device");
     generateActiveTagsList(activeTagList, ustensilsList, "ustensil");
 
-    addEvent_onClick_dropboxTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients", recipeGallery);
-    addEvent_onClick_dropboxTags(devicesTags.tagList, devicesList, activeTagList, "devices", recipeGallery);
-    addEvent_onClick_dropboxTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils", recipeGallery);
+    addEvent_onClick_dropboxTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
+    addEvent_onClick_dropboxTags(devicesTags.tagList, devicesList, activeTagList, "devices", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
+    addEvent_onClick_dropboxTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
 
-    addEvent_onClick_activeTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients", recipeGallery);
-    addEvent_onClick_activeTags(devicesTags.tagList, devicesList, activeTagList, "devices", recipeGallery);
-    addEvent_onClick_activeTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils", recipeGallery);
+    addEvent_onClick_activeTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
+    addEvent_onClick_activeTags(devicesTags.tagList, devicesList, activeTagList, "devices", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
+    addEvent_onClick_activeTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
 
     generateRecipeCardGallery(recipeGallery, recipeStructure);
 
@@ -38,11 +41,32 @@ getAsync().then((data) =>
     initSearchTagElement_event(devicesTags, devicesList);
     initSearchTagElement_event(ustensilsTags, ustensilsList);
 
-    initGlobalSearchBar(globalSearchBar, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags, devicesTags, ustensilsTags);
-    indexOf_test(ingredientsList, "Sugar");
- });
+    initGlobalSearchBar(globalSearchBar, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
+ 
+  });
 
 // Extract, standarize and initialize the list for each tag type
+function generatelistStruct(data){
+  var struct = new Array();
+
+  var ingredientList = new Array();
+  ingredientList.type = "ingredients";
+  ingredientList.tags = generateList("ingredients", data);
+  struct[0] = ingredientList;
+
+  var deviceList = new Array();
+  deviceList.type = "devices";
+  deviceList.tags = generateList("devices", data);
+  struct[2] = deviceList;
+
+  var ustensilList = new Array();
+  ustensilList.type = "ustensils";
+  ustensilList.tags = generateList("ustensils", data);
+  struct[2] = ustensilList;
+
+  return struct;
+}
+
 function generateList(type, data){
   var tagList = new Array();
   var uniqueTags = new Array();
@@ -132,6 +156,7 @@ function getKeywordStruct(recipe){
   keywordStruct.deviceTags = recipe.appliance;
   keywordStruct.ustensilTags = new Array();
   keywordStruct.relevant = true;
+  keywordStruct.tagRelevant = true;
 
   for(let i=0; i<recipe.ingredients.length; i++){
     keywordBuffer += " " + recipe.ingredients[i].ingredient;

@@ -166,13 +166,16 @@ function generateActiveTag(type, name){
 }
 
 // Events on dropBox/active tagList elements to toggle tags and 'active' parameter in tagList
-function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement, tagsType, gallery)
+function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement, tagsType, gallery, keywordStruct, ingredientTagList, deviceTagList, ustensilTagList, ingredientDropBox, deviceDropbox, ustensilDropbox)
 {
     for(let i=0; i<dropboxElement.children().length; i++){
         dropboxElement.children().eq(i).on('click', function(){
             dropboxElement.children().eq(i).hide();
             tagList[i].active = true;
-            dropBoxUpdate(dropboxElement, tagList);
+            tag_relevanceUpdate(keywordStruct, ingredientTagList, deviceTagList, ustensilTagList);
+            dropBoxUpdate(ingredientDropBox, ingredientTagList);
+            dropBoxUpdate(deviceDropbox, deviceTagList);
+            dropBoxUpdate(ustensilDropbox, ustensilTagList);
             
             var typeElement;
             switch(tagsType) {
@@ -201,7 +204,7 @@ function addEvent_onClick_dropboxTags(dropboxElement, tagList, activeTagsElement
     }
 }
 
-function addEvent_onClick_activeTags(dropboxElement, tagList, activeTagsElement, tagsType, gallery)
+function addEvent_onClick_activeTags(dropboxElement, tagList, activeTagsElement, tagsType, gallery, keywordStruct, ingredientTagList, deviceTagList, ustensilTagList, ingredientDropBox, deviceDropbox, ustensilDropbox)
 {
     var activeTagList_indexOffset;
     switch(tagsType) {
@@ -226,7 +229,10 @@ function addEvent_onClick_activeTags(dropboxElement, tagList, activeTagsElement,
         activeTagsElement.children().eq(i).on('click', function(){
             activeTagsElement.children().eq(i).hide();
             tagList[i-activeTagList_indexOffset].active = false;
-            dropBoxUpdate(dropboxElement, tagList);
+            tag_relevanceUpdate(keywordStruct, ingredientTagList, deviceTagList, ustensilTagList);
+            dropBoxUpdate(ingredientDropBox, ingredientTagList);
+            dropBoxUpdate(deviceDropbox, deviceTagList);
+            dropBoxUpdate(ustensilDropbox, ustensilTagList);
 
             dropboxElement.children().eq(i-activeTagList_indexOffset).show();
         
