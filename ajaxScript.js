@@ -25,16 +25,6 @@ getAsync().then((data) =>
 
     addEvent_onClick(elementDropBox_TagList, tagListStruct, activeTagList, recipeGallery, keywordStruct);
 
-    /*
-    addEvent_onClick_dropboxTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
-    addEvent_onClick_dropboxTags(devicesTags.tagList, devicesList, activeTagList, "devices", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
-    addEvent_onClick_dropboxTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
-*/
-
-    addEvent_onClick_activeTags(ingredientsTags.tagList, ingredientsList, activeTagList, "ingredients", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
-    addEvent_onClick_activeTags(devicesTags.tagList, devicesList, activeTagList, "devices", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
-    addEvent_onClick_activeTags(ustensilsTags.tagList, ustensilsList, activeTagList, "ustensils", recipeGallery, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
-
     generateRecipeCardGallery(recipeGallery, recipeStructure);
 
     initSearchTagElement_event(ingredientsTags, ingredientsList);
