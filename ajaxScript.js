@@ -18,20 +18,16 @@ getAsync().then((data) =>
     index_activeTagList_ustensils = index_activeTagList_devices + devicesList.length;
     const keywordStruct = generateKeywordStruct(recipeStructure);
 
-    // Generation of the tags in the dropBox menus
+    // Generation of the content and initialisation of the events
     generateDropBox_tagLists(elementDropBox_TagList, tagListStruct);
-
     generateActiveTags_tagLists(activeTagList, tagListStruct);
-
     addEvent_onClick(elementDropBox_TagList, tagListStruct, activeTagList, recipeGallery, keywordStruct);
-
     generateRecipeCardGallery(recipeGallery, recipeStructure);
+    initSearchTagElement_event(ingredientsTags, tagListStruct[0].tags);
+    initSearchTagElement_event(devicesTags, tagListStruct[1].tags);
+    initSearchTagElement_event(ustensilsTags, tagListStruct[2].tags);
 
-    initSearchTagElement_event(ingredientsTags, ingredientsList);
-    initSearchTagElement_event(devicesTags, devicesList);
-    initSearchTagElement_event(ustensilsTags, ustensilsList);
-
-    initGlobalSearchBar(globalSearchBar, keywordStruct, ingredientsList, devicesList, ustensilsList, ingredientsTags.tagList, devicesTags.tagList, ustensilsTags.tagList);
+    initGlobalSearchBar(recipeGallery, globalSearchBar, keywordStruct, elementDropBox_TagList, tagListStruct);
  
   });
 
@@ -137,16 +133,18 @@ function generateKeywordStruct(recipe){
   return keywordStructList;
 }
 
-
 function getKeywordStruct(recipe){
   var keywordStruct = new Array();
   keywordStruct.keywordList = new Array();
-  var keywordBuffer = recipe.name + " " + recipe.description;
   keywordStruct.ingredientTags = new Array();
   keywordStruct.deviceTags = recipe.appliance;
   keywordStruct.ustensilTags = new Array();
-  keywordStruct.relevant = true;
+
   keywordStruct.tagRelevant = true;
+  keywordStruct.searchRelevant = true;
+  keywordStruct.relevant = true;
+
+  var keywordBuffer = recipe.name + " " + recipe.description;
 
   for(let i=0; i<recipe.ingredients.length; i++){
     keywordBuffer += " " + recipe.ingredients[i].ingredient;
