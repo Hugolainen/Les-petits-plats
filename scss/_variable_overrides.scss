@@ -60,7 +60,24 @@ $line-height-lg:2.5;
 .galleryPositioning{
   position:absolute;
   top: 335px;
-  width: 1240px;
 
+  --widthGallery: 1240px;
+
+  @media (max-width: 992px) {
+    --widthGallery: 90%;
+  }
+
+  @media (max-width: 768px) {
+    --widthGallery: 95%;
+  }
+
+  @media (max-width: 576px) {
+    --widthGallery: 98%;
+    top: 400px;
+  }
+
+  --leftoffset: calc(50% - (var(--widthGallery)/2));
+  left: --leftoffset;
+  width: var(--widthGallery);
   z-index:-1;
 }

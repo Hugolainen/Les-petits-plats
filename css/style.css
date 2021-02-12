@@ -28,8 +28,27 @@
 .galleryPositioning {
   position: absolute;
   top: 335px;
-  width: 1240px;
+  --widthGallery: 1240px;
+  --leftoffset: calc(50% - (var(--widthGallery)/2));
+  left: --leftoffset;
+  width: var(--widthGallery);
   z-index: -1;
+}
+@media (max-width: 992px) {
+  .galleryPositioning {
+    --widthGallery: 90%;
+  }
+}
+@media (max-width: 768px) {
+  .galleryPositioning {
+    --widthGallery: 95%;
+  }
+}
+@media (max-width: 576px) {
+  .galleryPositioning {
+    --widthGallery: 98%;
+    top: 400px;
+  }
 }
 
 /*!

@@ -169,6 +169,7 @@ function cleanTagListRelevance(listof_tagList){
 }
 
 function searchAlgorithm(keywordList, searchWord){
+    // TO DO
     const test = Math.random() * 10;
     if(test < 1){
         return true;

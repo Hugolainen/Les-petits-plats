@@ -41,7 +41,7 @@ initTags(ingredientsTags);
 initTags(devicesTags);
 initTags(ustensilsTags);
 
-
+var container = $("#mainContainer"); 
 
 function generateDropBox_tagLists(listof_dropBox_tagList, listof_tagList){
     generateTagList(listof_dropBox_tagList.ingredients, listof_tagList[0].tags);
@@ -181,8 +181,14 @@ function addEvent_onClick_dropboxTags(listof_dropBox_tagList, listof_tagList, ac
             activatedTag = activeTag_tagList.children().eq(i + activeTagList_offset);
             activatedTag.show();
 
-            const newOffset = 335 + activeTag_tagList.height();
-            gallery.css("top", newOffset + "px");
+            if(container.width() <= 576){
+                const newOffset = 400 + activeTag_tagList.height();
+                gallery.css("top", newOffset + "px");
+            }
+            else{
+                const newOffset = 335 + activeTag_tagList.height();
+                gallery.css("top", newOffset + "px");
+            }
 
             tag_relevanceUpdate(keywordStruct, listof_tagList);
             recipe_RelevanceUpdate(keywordStruct);
@@ -228,8 +234,14 @@ function addEvent_onClick_activeTags(listof_dropBox_tagList, listof_tagList, act
 
             dropboxElement.children().eq(i-activeTagList_offset).show();
         
-            const newOffset = 335 + activeTag_tagList.height();
-            gallery.css("top", newOffset + "px");
+            if(container.width() <= 576){
+                const newOffset = 400 + activeTag_tagList.height();
+                gallery.css("top", newOffset + "px");
+            }
+            else{
+                const newOffset = 335 + activeTag_tagList.height();
+                gallery.css("top", newOffset + "px");
+            }
 
             tag_relevanceUpdate(keywordStruct, listof_tagList);
             recipe_RelevanceUpdate(keywordStruct);
@@ -261,9 +273,9 @@ function initSearchTagElement_event(element, tagList){
 
 // Opening and closing of tags search
 function tags_toggleOn(object){
-    object["element"].removeClass('col-2');
+    object["element"].removeClass('col-md-3 col-5 col-lg-2');
     object["element"].removeClass('heightControl');
-    object["element"].addClass('col-6');
+    object["element"].addClass('col-10 col-lg-6');
 
     object["btnOpen"].hide();
     object["searchBar"].show();
@@ -273,8 +285,8 @@ function tags_toggleOn(object){
 }
 
 function tags_toggleOff(object){
-    object["element"].removeClass('col-6');
-    object["element"].addClass('col-2');
+    object["element"].removeClass('col-10 col-lg-6');
+    object["element"].addClass('col-md-3 col-5 col-lg-2');
     object["element"].addClass('heightControl');
 
     object["btnOpen"].show();
@@ -287,30 +299,60 @@ ingredientsTags["btnOpen"].on('click', function(event) {
     tags_toggleOn(ingredientsTags);
     tags_toggleOff(ustensilsTags);
     tags_toggleOff(devicesTags);
+
+    if(container.width() <= 768){
+        devicesTags.element.hide();
+        ustensilsTags.element.hide();
+    }
 });
 
 ingredientsTags["btnClose"].on('click', function(event) {
     tags_toggleOff(ingredientsTags);
+
+    if(container.width() <= 768){
+        devicesTags.element.show();
+        ustensilsTags.element.show();
+    }
 });
 
 devicesTags["btnOpen"].on('click', function(event) {
     tags_toggleOn(devicesTags);
     tags_toggleOff(ingredientsTags);
     tags_toggleOff(ustensilsTags);
+
+    if(container.width() <= 768){
+        ingredientsTags.element.hide();
+        ustensilsTags.element.hide();
+    }
 });
 
 devicesTags["btnClose"].on('click', function(event) {
     tags_toggleOff(devicesTags);
+
+    if(container.width() <= 768){
+        ingredientsTags.element.show();
+        ustensilsTags.element.show();
+    }
 });
 
 ustensilsTags["btnOpen"].on('click', function(event) {
     tags_toggleOn(ustensilsTags);
     tags_toggleOff(ingredientsTags);
     tags_toggleOff(devicesTags);
+
+    if(container.width() <= 768){
+        ingredientsTags.element.hide();
+        devicesTags.element.hide();
+    }
 });
 
 ustensilsTags["btnClose"].on('click', function(event) {
     tags_toggleOff(ustensilsTags);
+
+    if(container.width() <= 768){
+        ingredientsTags.element.show();
+        devicesTags.element.show();
+    }
 });
 
 
