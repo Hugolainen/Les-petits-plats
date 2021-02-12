@@ -1,5 +1,5 @@
 const globalSearchBar = $("#global_searchInput");
-
+const noMatchMessage = $("#noMatchMessage");
 
 
 function initGlobalSearchBar(gallery, searchBarElement, keywordStruct, listof_dropBox_tagList, listof_tagList){
@@ -28,6 +28,7 @@ function searchEngine(keywordStruct, searchWord){
     for(let i=0; i<keywordStruct.length;i++){
         if(searchAlgorithm(keywordStruct[i].keywordList, searchWord)){
             keywordStruct[i].searchRelevant = true;
+            noMatchMessage.hide();
             noMatch = false;
         }
         else{
@@ -36,7 +37,7 @@ function searchEngine(keywordStruct, searchWord){
     }
 
     if(noMatch){
-        console.log("no match");
+        noMatchMessage.show();
     }
 }
 
@@ -171,7 +172,7 @@ function cleanTagListRelevance(listof_tagList){
 function searchAlgorithm(keywordList, searchWord){
     // TO DO
     const test = Math.random() * 10;
-    if(test < 1){
+    if(test < 0.5)
         return true;
     }
     else{
