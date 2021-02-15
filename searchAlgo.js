@@ -5,7 +5,8 @@ const noMatchMessage = $("#noMatchMessage");
 function initGlobalSearchBar(gallery, searchBarElement, keywordStruct, listof_dropBox_tagList, listof_tagList){
     searchBarElement.on('keyup', function(e){
         const searchWord = e.target.value.toLowerCase();
-
+        noMatchMessage.hide();
+        
         if(searchWord.length >= 3){
             searchEngine(keywordStruct, searchWord);
         }
@@ -28,7 +29,6 @@ function searchEngine(keywordStruct, searchWord){
     for(let i=0; i<keywordStruct.length;i++){
         if(searchAlgorithm(keywordStruct[i].keywordList, searchWord)){
             keywordStruct[i].searchRelevant = true;
-            noMatchMessage.hide();
             noMatch = false;
         }
         else{
