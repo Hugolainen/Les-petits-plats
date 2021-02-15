@@ -5,6 +5,7 @@ const noMatchMessage = $("#noMatchMessage");
 function initGlobalSearchBar(gallery, searchBarElement, keywordStruct, listof_dropBox_tagList, listof_tagList){
     searchBarElement.on('keyup', function(e){
         const searchWord = e.target.value.toLowerCase();
+        noMatchMessage.hide();
 
         if(searchWord.length >= 3){
             searchEngine(keywordStruct, searchWord);
@@ -28,7 +29,6 @@ function searchEngine(keywordStruct, searchWord){
     for(let i=0; i<keywordStruct.length;i++){
         if(searchAlgorithm(keywordStruct[i].keywordList, searchWord)){
             keywordStruct[i].searchRelevant = true;
-            noMatchMessage.hide();
             noMatch = false;
         }
         else{
@@ -170,13 +170,26 @@ function cleanTagListRelevance(listof_tagList){
 }
 
 function searchAlgorithm(keywordList, searchWord){
-    // TO DO
-    const test = Math.random() * 10;
-    if(test < 5){
-        return true;
-    } 
-    else
-    {
-        return false;
+    return binarySearch(keywordList, 0, keywordList.length -1, searchWord)
+}
+
+
+function binarySearch(keywordList, min, max, searchWord){
+
+    if(max >= min){
+        let index = Math.trunc(min + (max- min)/2);
+       
+
+        if(keywordList[index].includes(searchWord)){
+            return true;
+        }
+
+        if(keywordList[index] > searchWord){
+            return binarySearch(keywordList, min, index-1, searchWord);
+        }
+
+        return binarySearch(keywordList, index+1, max, searchWord);
     }
+
+    return false;
 }
