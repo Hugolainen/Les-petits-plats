@@ -5,6 +5,7 @@ const noMatchMessage = $("#noMatchMessage");
 function initGlobalSearchBar(gallery, searchBarElement, keywordStruct, listof_dropBox_tagList, listof_tagList){
     searchBarElement.on('keyup', function(e){
         const searchWord = e.target.value.toLowerCase();
+        noMatchMessage.hide();
 
         if(searchWord.length >= 3){
             searchEngine(keywordStruct, searchWord);
@@ -28,7 +29,6 @@ function searchEngine(keywordStruct, searchWord){
     for(let i=0; i<keywordStruct.length;i++){
         if(searchAlgorithm(keywordStruct[i].keywordList, searchWord)){
             keywordStruct[i].searchRelevant = true;
-            noMatchMessage.hide();
             noMatch = false;
         }
         else{
@@ -170,13 +170,18 @@ function cleanTagListRelevance(listof_tagList){
 }
 
 function searchAlgorithm(keywordList, searchWord){
-    // TO DO
-    const test = Math.random() * 10;
-    if(test < 5){
+    var searchOK = false;
+    keywordList.forEach((keyword)=>{
+        if(keyword.includes(searchWord)){
+            searchOK = true;
+            return 0;
+        }
+    });
+
+    if(searchOK){
         return true;
-    } 
-    else
-    {
+    }
+    else{
         return false;
     }
 }
