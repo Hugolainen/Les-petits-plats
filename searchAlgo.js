@@ -170,13 +170,48 @@ function cleanTagListRelevance(listof_tagList){
 }
 
 function searchAlgorithm(keywordList, searchWord){
-    // TO DO
-    const test = Math.random() * 10;
-    if(test < 5){
-        return true;
-    } 
-    else
-    {
-        return false;
+    return interpolationSearch(keywordList, 0, keywordList.length -1, searchWord)
+}
+
+
+function interpolationSearch(keywordList, min, max, searchWord){
+
+    if(min <= max 
+        && searchWord >= keywordList[min]
+        && searchWord <= keywordList[max]){
+        
+        let index = min + (((max-min) / getStringDecimalDist(searchWord.length, keywordList[max], keywordList[min])) * getStringDecimalDist(searchWord.length, searchWord, keywordList[min]));
+        index = Math.trunc(index);
+        console.log(index);
+       
+        if(keywordList[index].includes(searchWord)){
+            return true;
+        }
+
+        if(keywordList[index] < searchWord){
+            return interpolationSearch(keywordList, index+1, max, searchWord);
+        }
+
+        return interpolationSearch(keywordList, min, index-1, searchWord);
     }
+
+    return false;
+}
+
+function getStringDecimalDist(maxLength, string1, string2){
+    var dist = 0;
+
+    for(let i=0; i<maxLength; i++){
+        if(i < string1.length && i<string2.length){
+            dist += Math.abs(string1.charCodeAt(i) - string2.charCodeAt(i));
+        }
+        else if(i < string1.length){
+            dist += string1.charCodeAt(i);
+        }
+        else{
+            dist += string2.charCodeAt(i);
+        }
+    }
+
+    return dist;
 }
