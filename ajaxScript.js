@@ -168,9 +168,6 @@ function getKeywordStruct(recipe){
   // Old way to filter duplicates
   //keywordStruct.keywordList = keywordBuffer.filter((v, i, a) => a.indexOf(v) === i);
 
-  // Sort array Alphabeticaly
-  keywordBuffer = keywordBuffer.sort();
-
   keywordStruct.keywordList = keywordBuffer;
 
   return keywordStruct;

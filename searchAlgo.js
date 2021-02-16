@@ -26,6 +26,9 @@ function initGlobalSearchBar(gallery, searchBarElement, keywordStruct, listof_dr
 
 function searchEngine(keywordStruct, searchWord){
     var noMatch = true;
+
+    console.time('Execution time');
+
     for(let i=0; i<keywordStruct.length;i++){
         if(searchAlgorithm(keywordStruct[i].keywordList, searchWord)){
             keywordStruct[i].searchRelevant = true;
@@ -39,6 +42,8 @@ function searchEngine(keywordStruct, searchWord){
     if(noMatch){
         noMatchMessage.show();
     }
+
+    console.timeEnd('Execution time');
 }
 
 // When searched word is shorter than 3 characters, all recipes are relevant
