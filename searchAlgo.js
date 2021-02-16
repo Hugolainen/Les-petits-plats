@@ -24,6 +24,8 @@ function initGlobalSearchBar(gallery, searchBarElement, keywordStruct, listof_dr
 
 
 function searchEngine(keywordStruct, searchWord){
+    console.time('Execution Time');
+
     var noMatch = true;
     for(let i=0; i<keywordStruct.length;i++){
         if(searchAlgorithm(keywordStruct[i].keywordList, searchWord)){
@@ -39,6 +41,8 @@ function searchEngine(keywordStruct, searchWord){
     if(noMatch){
         noMatchMessage.show();
     }
+
+    console.timeEnd('Execution Time');
 }
 
 // When searched word is shorter than 3 characters, all recipes are relevant
@@ -180,10 +184,20 @@ function interpolationSearch(keywordList, min, max, searchWord){
         && searchWord >= keywordList[min]
         && searchWord <= keywordList[max]){
         
-        let index = min + (((max-min) / getStringDecimalDist(searchWord.length, keywordList[max], keywordList[min])) * getStringDecimalDist(searchWord.length, searchWord, keywordList[min]));
+        let index = min + 
+            (
+                ( (max-min) * (getStringDecimalDist(searchWord.length, searchWord, keywordList[min]) 
+                / getStringDecimalDist(searchWord.length, keywordList[max], keywordList[min])))
+            );
         index = Math.trunc(index);
         console.log(index);
-       
+       if(index>max){
+           index=max;
+       }
+       else if(index<min){
+           index = min;
+       }
+
         if(keywordList[index].includes(searchWord)){
             return true;
         }
@@ -213,5 +227,5 @@ function getStringDecimalDist(maxLength, string1, string2){
         }
     }
 
-    return dist;
+    return dist/maxLength;
 }
