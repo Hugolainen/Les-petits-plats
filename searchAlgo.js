@@ -174,7 +174,7 @@ function cleanTagListRelevance(listof_tagList){
 }
 
 function searchAlgorithm(keywordList, searchWord){
-    return binarySearch(keywordList, 0, keywordList.length -1, searchWord)
+    return binarySearch(keywordList, 0, keywordList.length -1, searchWord);
 }
 
 
