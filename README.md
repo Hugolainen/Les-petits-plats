@@ -12,6 +12,6 @@ Objectives:
   - JavaScript
   - Feature investigation
   - Algorithm performance testing on array of string
-      > Linear search
-      > Binary search
-      > Interpolation search
+      + Linear search
+      + Binary search
+      + Interpolation search
