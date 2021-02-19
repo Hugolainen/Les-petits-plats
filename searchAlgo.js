@@ -6,7 +6,7 @@ function initGlobalSearchBar(gallery, searchBarElement, keywordStruct, listof_dr
     searchBarElement.on('keyup', function(e){
         const searchWord = e.target.value.toLowerCase();
         noMatchMessage.hide();
-        
+
         if(searchWord.length >= 3){
             searchEngine(keywordStruct, searchWord);
         }
@@ -25,6 +25,8 @@ function initGlobalSearchBar(gallery, searchBarElement, keywordStruct, listof_dr
 
 
 function searchEngine(keywordStruct, searchWord){
+    console.time('Execution time');
+    
     var noMatch = true;
     for(let i=0; i<keywordStruct.length;i++){
         if(searchAlgorithm(keywordStruct[i].keywordList, searchWord)){
@@ -39,6 +41,8 @@ function searchEngine(keywordStruct, searchWord){
     if(noMatch){
         noMatchMessage.show();
     }
+
+    console.timeEnd('Execution time');
 }
 
 // When searched word is shorter than 3 characters, all recipes are relevant
@@ -170,13 +174,26 @@ function cleanTagListRelevance(listof_tagList){
 }
 
 function searchAlgorithm(keywordList, searchWord){
-    // TO DO
-    const test = Math.random() * 10;
-    if(test < 5){
-        return true;
-    } 
-    else
-    {
-        return false;
+    return binarySearch(keywordList, 0, keywordList.length -1, searchWord)
+}
+
+
+function binarySearch(keywordList, min, max, searchWord){
+
+    if(max >= min){
+        let index = Math.trunc(min + (max- min)/2);
+       
+
+        if(keywordList[index].includes(searchWord)){
+            return true;
+        }
+
+        if(keywordList[index] > searchWord){
+            return binarySearch(keywordList, min, index-1, searchWord);
+        }
+
+        return binarySearch(keywordList, index+1, max, searchWord);
     }
+
+    return false;
 }
