@@ -11,4 +11,7 @@ Objectives:
 * Search engine tool
   - JavaScript
   - Feature investigation
-  - Algorithm performance testing
+  - Algorithm performance testing on array of string
+      > Linear search
+      > Binary search
+      > Interpolation search
